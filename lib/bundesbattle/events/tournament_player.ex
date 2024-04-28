@@ -2,8 +2,8 @@ defmodule Bundesbattle.Events.TournamentPlayer do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:id, :binary_id, autogenerate: true}
-  @foreign_key_type :binary_id
+  @primary_key {:id, Uniq.UUID, version: 7, autogenerate: true}
+  @foreign_key_type Uniq.UUID
   schema "tournament_players" do
     field :placement, :integer
     belongs_to :tournament, Bundesbattle.Events.Tournament

@@ -2,8 +2,8 @@ defmodule Bundesbattle.Events.Tournament do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:id, :binary_id, autogenerate: true}
-  @foreign_key_type :binary_id
+  @primary_key {:id, Uniq.UUID, version: 7, autogenerate: true}
+  @foreign_key_type Uniq.UUID
   schema "tournaments" do
     field :name, :string
     field :datetime, :naive_datetime
