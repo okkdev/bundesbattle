@@ -19,7 +19,7 @@ defmodule BundesbattleWeb.AuthController do
 
     case Accounts.fetch_or_create_user(user_params) do
       {:ok, user} ->
-        UserAuth.log_in_user(conn, user)
+        UserAuth.log_in_user(conn, user, %{"remember_me" => "true"})
 
       {:error, reason} ->
         conn

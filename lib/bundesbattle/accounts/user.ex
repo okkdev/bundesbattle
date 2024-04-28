@@ -45,6 +45,9 @@ defmodule Bundesbattle.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
+    many_to_many :tournaments, Bundesbattle.Events.Tournament,
+      join_through: Bundesbattle.Events.TournamentPlayer
+
     timestamps(type: :utc_datetime)
   end
 
@@ -76,6 +79,12 @@ defmodule Bundesbattle.Accounts.User do
     |> cast(attrs, [:email, :password, :nickname, :discord_user, :image])
     |> validate_email(opts)
     |> validate_password(opts)
+  end
+
+  def update_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:nickname, :discord_user, :image, :role, :canton])
+    |> cast(attrs, [:nickname, :discord_user, :image, :role, :canton])
   end
 
   defp validate_email(changeset, opts) do

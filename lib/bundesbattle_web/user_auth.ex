@@ -158,7 +158,21 @@ defmodule BundesbattleWeb.UserAuth do
       socket =
         socket
         |> Phoenix.LiveView.put_flash(:error, "You must log in to access this page.")
-        |> Phoenix.LiveView.redirect(to: ~p"/users/log_in")
+        |> Phoenix.LiveView.redirect(to: ~p"/")
+
+      {:halt, socket}
+    end
+  end
+
+  def on_mount(:ensure_organizer, _params, session, socket) do
+    socket = mount_current_user(socket, session)
+
+    if socket.assigns.current_user.role in [:organizer, :admin] do
+      {:cont, socket}
+    else
+      socket =
+        socket
+        |> Phoenix.LiveView.redirect(to: ~p"/")
 
       {:halt, socket}
     end
@@ -208,7 +222,7 @@ defmodule BundesbattleWeb.UserAuth do
       conn
       |> put_flash(:error, "You must log in to access this page.")
       |> maybe_store_return_to()
-      |> redirect(to: ~p"/users/log_in")
+      |> redirect(to: ~p"/login")
       |> halt()
     end
   end

@@ -26,6 +26,10 @@ defmodule Bundesbattle.Accounts do
     Repo.get_by(User, email: email)
   end
 
+  def get_user_by_discord_username(discord_user) when is_binary(discord_user) do
+    Repo.get_by(User, discord_user: discord_user)
+  end
+
   @doc """
   Gets a user by email and password.
 
@@ -162,7 +166,7 @@ defmodule Bundesbattle.Accounts do
 
   ## Examples
 
-      iex> deliver_user_update_email_instructions(user, current_email, &url(~p"/users/settings/confirm_email/#{&1})")
+      iex> deliver_user_update_email_instructions(user, current_email, &url(~p"/user/settings/confirm_email/#{&1})")
       {:ok, %{to: ..., body: ...}}
 
   """
@@ -250,10 +254,10 @@ defmodule Bundesbattle.Accounts do
 
   ## Examples
 
-      iex> deliver_user_confirmation_instructions(user, &url(~p"/users/confirm/#{&1}"))
+      iex> deliver_user_confirmation_instructions(user, &url(~p"/user/confirm/#{&1}"))
       {:ok, %{to: ..., body: ...}}
 
-      iex> deliver_user_confirmation_instructions(confirmed_user, &url(~p"/users/confirm/#{&1}"))
+      iex> deliver_user_confirmation_instructions(confirmed_user, &url(~p"/user/confirm/#{&1}"))
       {:error, :already_confirmed}
 
   """
@@ -297,7 +301,7 @@ defmodule Bundesbattle.Accounts do
 
   ## Examples
 
-      iex> deliver_user_reset_password_instructions(user, &url(~p"/users/reset_password/#{&1}"))
+      iex> deliver_user_reset_password_instructions(user, &url(~p"/user/reset_password/#{&1}"))
       {:ok, %{to: ..., body: ...}}
 
   """
@@ -362,5 +366,11 @@ defmodule Bundesbattle.Accounts do
         |> User.registration_changeset(attrs)
         |> Repo.insert()
     end
+  end
+
+  def update_user(user, attrs) do
+    user
+    |> User.update_changeset(attrs)
+    |> Repo.update()
   end
 end

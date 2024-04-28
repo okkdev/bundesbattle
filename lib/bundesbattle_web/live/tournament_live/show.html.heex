@@ -1,0 +1,29 @@
+<.header>
+  Tournament <%= @tournament.id %>
+  <:subtitle>This is a tournament record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/manage/tournaments/#{@tournament}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit tournament</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @tournament.name %></:item>
+  <:item title="Datetime"><%= @tournament.datetime %></:item>
+  <:item title="Game"><%= @tournament.game %></:item>
+  <:item title="Region"><%= @tournament.region %></:item>
+</.list>
+
+<.back navigate={~p"/manage/tournaments"}>Back to tournaments</.back>
+
+<.modal :if={@live_action == :edit} id="tournament-modal" show on_cancel={JS.patch(~p"/manage/tournaments/#{@tournament}")}>
+  <.live_component
+    module={BundesbattleWeb.TournamentLive.FormComponent}
+    id={@tournament.id}
+    title={@page_title}
+    action={@live_action}
+    tournament={@tournament}
+    patch={~p"/manage/tournaments/#{@tournament}"}
+  />
+</.modal>

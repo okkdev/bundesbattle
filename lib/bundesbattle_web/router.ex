@@ -47,20 +47,6 @@ defmodule BundesbattleWeb.Router do
 
   ## Authentication routes
 
-  # scope "/", BundesbattleWeb do
-  #   pipe_through [:browser, :redirect_if_user_is_authenticated]
-  #
-  #   live_session :redirect_if_user_is_authenticated,
-  #     on_mount: [{BundesbattleWeb.UserAuth, :redirect_if_user_is_authenticated}] do
-  #     live "/users/register", UserRegistrationLive, :new
-  #     live "/users/login", UserLoginLive, :new
-  #     live "/users/reset-password", UserForgotPasswordLive, :new
-  #     live "/users/reset-password/:token", UserResetPasswordLive, :edit
-  #   end
-  #
-  #   post "/users/log-in", UserSessionController, :create
-  # end
-
   scope "/auth", BundesbattleWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
@@ -73,20 +59,48 @@ defmodule BundesbattleWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{BundesbattleWeb.UserAuth, :ensure_authenticated}] do
-      live "/users/settings", UserSettingsLive, :edit
-      live "/users/settings/confirm-email/:token", UserSettingsLive, :confirm_email
+      live "/user/settings", UserSettingsLive, :edit
+      live "/user/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
+  end
+
+  scope "/", BundesbattleWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
+    live_session :redirect_if_user_is_authenticated,
+      on_mount: [{BundesbattleWeb.UserAuth, :redirect_if_user_is_authenticated}] do
+      # live "/register", UserRegistrationLive, :new
+      live "/login", UserLoginLive, :new
+      live "/user/reset_password", UserForgotPasswordLive, :new
+      live "/user/reset_password/:token", UserResetPasswordLive, :edit
+    end
+
+    post "/login", UserSessionController, :create
   end
 
   scope "/", BundesbattleWeb do
     pipe_through [:browser]
 
-    delete "/users/logout", UserSessionController, :delete
+    delete "/logout", UserSessionController, :delete
 
     live_session :current_user,
       on_mount: [{BundesbattleWeb.UserAuth, :mount_current_user}] do
-      live "/users/confirm/:token", UserConfirmationLive, :edit
-      live "/users/confirm", UserConfirmationInstructionsLive, :new
+      live "/user/confirm/:token", UserConfirmationLive, :edit
+      live "/user/confirm", UserConfirmationInstructionsLive, :new
+    end
+  end
+
+  scope "/manage", BundesbattleWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    live_session :require_organizer,
+      on_mount: [{BundesbattleWeb.UserAuth, :ensure_organizer}] do
+      live "/tournaments", TournamentLive.Index, :index
+      live "/tournaments/new", TournamentLive.Index, :new
+      live "/tournaments/:id/edit", TournamentLive.Index, :edit
+
+      live "/tournaments/:id", TournamentLive.Show, :show
+      live "/tournaments/:id/show/edit", TournamentLive.Show, :edit
     end
   end
 end
