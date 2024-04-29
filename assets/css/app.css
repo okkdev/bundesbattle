@@ -10,6 +10,7 @@
   min-width: 0px;
 }
 
+/* Leaflet map overrides */
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out,
 .leaflet-control-attribution {
@@ -17,4 +18,12 @@
 }
 .leaflet-container {
   background: transparent;
+}
+.leaflet-pane {
+  z-index: 1;
+}
+.leaflet-control,
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 2;
 }

@@ -13,6 +13,7 @@
   row_click={fn {_id, tournament} -> JS.navigate(~p"/manage/tournaments/#{tournament}") end}
 >
   <:col :let={{_id, tournament}} label="Name"><%= tournament.name %></:col>
+  <:col :let={{_id, tournament}} label="Bracket Link"><%= tournament.bracket_link %></:col>
   <:col :let={{_id, tournament}} label="Datetime"><%= tournament.datetime %></:col>
   <:col :let={{_id, tournament}} label="Game"><%= tournament.game %></:col>
   <:col :let={{_id, tournament}} label="Region"><%= tournament.region %></:col>

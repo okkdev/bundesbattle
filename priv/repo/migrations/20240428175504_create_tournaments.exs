@@ -5,6 +5,7 @@ defmodule Bundesbattle.Repo.Migrations.CreateTournaments do
     create table(:tournaments, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :name, :string
+      add :bracket_link, :string
       add :datetime, :naive_datetime
       add :game, :string
       add :region, :string

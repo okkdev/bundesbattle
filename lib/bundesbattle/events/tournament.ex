@@ -6,6 +6,7 @@ defmodule Bundesbattle.Events.Tournament do
   @foreign_key_type Uniq.UUID
   schema "tournaments" do
     field :name, :string
+    field :bracket_link, :string
     field :datetime, :naive_datetime
     field :game, Ecto.Enum, values: [:tekken, :streetfighter]
     field :region, Ecto.Enum, values: [:basel, :lausanne, :zurich]
@@ -19,7 +20,7 @@ defmodule Bundesbattle.Events.Tournament do
   @doc false
   def changeset(tournament, attrs) do
     tournament
-    |> cast(attrs, [:name, :datetime, :game, :region])
+    |> cast(attrs, [:name, :bracket_link, :datetime, :game, :region])
     |> validate_required([:name, :datetime, :game, :region])
   end
 end
