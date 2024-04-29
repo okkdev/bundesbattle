@@ -21,6 +21,10 @@ defmodule BundesbattleWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    get "/basel", BaselController, :index
+    # get "/zurich", ZurichController, :index
+    # get "/lausanne", LausanneController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -101,6 +105,13 @@ defmodule BundesbattleWeb.Router do
 
       live "/tournaments/:id", TournamentLive.Show, :show
       live "/tournaments/:id/show/edit", TournamentLive.Show, :edit
+
+      live "/users", UserLive.Index, :index
+      live "/users/new", UserLive.Index, :new
+      live "/users/:id/edit", UserLive.Index, :edit
+
+      live "/users/:id", UserLive.Show, :show
+      live "/users/:id/show/edit", UserLive.Show, :edit
     end
   end
 end

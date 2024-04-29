@@ -26,6 +26,14 @@ defmodule Bundesbattle.Accounts do
     Repo.get_by(User, email: email)
   end
 
+  def get_user_by_nickname(nickname) when is_binary(nickname) do
+    nickname = String.downcase(nickname)
+
+    from u in User,
+      where: fragment("LOWER(?) = ?", u.nickname, ^nickname),
+      select: u
+  end
+
   def get_user_by_discord_username(discord_user) when is_binary(discord_user) do
     Repo.get_by(User, discord_user: discord_user)
   end
@@ -356,21 +364,47 @@ defmodule Bundesbattle.Accounts do
     end
   end
 
-  def fetch_or_create_user(attrs) do
+  def list_users() do
+    Repo.all(User)
+  end
+
+  def fetch_or_create_user(attrs, opts \\ []) do
     case get_user_by_email(attrs.email) do
       %User{} = user ->
         {:ok, user}
 
       _ ->
-        %User{}
-        |> User.registration_changeset(attrs)
-        |> Repo.insert()
+        create_user(attrs, opts)
     end
   end
 
-  def update_user(user, attrs) do
+  def create_user(attrs, opts \\ []) do
+    attrs =
+      case Keyword.get(opts, :random_password, false) do
+        true -> %{attrs | password: random_password()}
+        false -> attrs
+      end
+
+    %User{}
+    |> User.registration_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_user(%User{} = user, attrs) do
     user
     |> User.update_changeset(attrs)
     |> Repo.update()
+  end
+
+  def change_user(%User{} = user, attrs \\ %{}) do
+    User.update_changeset(user, attrs)
+  end
+
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
+  end
+
+  defp random_password do
+    :crypto.strong_rand_bytes(32) |> Base.encode64()
   end
 end

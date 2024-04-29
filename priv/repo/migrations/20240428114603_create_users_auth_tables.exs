@@ -9,14 +9,14 @@ defmodule Bundesbattle.Repo.Migrations.CreateUsersAuthTables do
       add :canton, :string
       add :discord_user, :string, null: false
       add :image, :string
-      add :email, :string, null: false, collate: :nocase
+      add :email, :string, collate: :nocase
       add :role, :string, null: false
       add :hashed_password, :string, null: false
       add :confirmed_at, :naive_datetime
       timestamps(type: :utc_datetime)
     end
 
-    create unique_index(:users, [:email])
+    create unique_index(:users, [:email, :nickname])
 
     create table(:users_tokens, primary_key: false) do
       add :id, :binary_id, primary_key: true

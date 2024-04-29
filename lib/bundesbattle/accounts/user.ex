@@ -77,14 +77,15 @@ defmodule Bundesbattle.Accounts.User do
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password, :nickname, :discord_user, :image])
+    |> validate_required([:nickname])
     |> validate_email(opts)
     |> validate_password(opts)
   end
 
   def update_changeset(user, attrs) do
     user
-    |> cast(attrs, [:nickname, :discord_user, :image, :role, :canton])
-    |> cast(attrs, [:nickname, :discord_user, :image, :role, :canton])
+    |> cast(attrs, [:name, :nickname, :discord_user, :image, :role, :canton])
+    |> validate_required([:nickname])
   end
 
   defp validate_email(changeset, opts) do
