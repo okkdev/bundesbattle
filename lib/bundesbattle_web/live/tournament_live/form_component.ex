@@ -21,6 +21,7 @@ defmodule BundesbattleWeb.TournamentLive.FormComponent do
       >
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:datetime]} type="datetime-local" label="Datetime" />
+        <.input field={@form[:bracket_link]} type="text" label="Bracket Link" />
         <.input
           field={@form[:game]}
           type="select"

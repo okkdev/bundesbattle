@@ -99,6 +99,8 @@ defmodule BundesbattleWeb.Router do
 
     live_session :require_organizer,
       on_mount: [{BundesbattleWeb.UserAuth, :ensure_organizer}] do
+      live "/", ManageLive
+
       live "/tournaments", TournamentLive.Index, :index
       live "/tournaments/new", TournamentLive.Index, :new
       live "/tournaments/:id/edit", TournamentLive.Index, :edit

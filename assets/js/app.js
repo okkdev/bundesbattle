@@ -22,12 +22,31 @@ import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
-let csrfToken = document
+const Hooks = {}
+
+Hooks.Flash = {
+  mounted() {
+    const hide = () =>
+      liveSocket.execJS(this.el, this.el.getAttribute("phx-click"))
+    this.timer = setTimeout(() => hide(), 8000)
+    this.el.addEventListener("phx:hide-start", () => clearTimeout(this.timer))
+    this.el.addEventListener("mouseover", () => {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => hide(), 8000)
+    })
+  },
+  destroyed() {
+    clearTimeout(this.timer)
+  },
+}
+
+const csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {
+const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
   params: { _csrf_token: csrfToken },
+  hooks: Hooks,
 })
 
 // Show progress bar on live navigation and form submits

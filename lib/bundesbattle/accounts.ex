@@ -133,10 +133,9 @@ defmodule Bundesbattle.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def apply_user_email(user, password, attrs) do
+  def apply_user_email(user, attrs) do
     user
     |> User.email_changeset(attrs)
-    |> User.validate_current_password(password)
     |> Ecto.Changeset.apply_action(:update)
   end
 
@@ -156,6 +155,12 @@ defmodule Bundesbattle.Accounts do
     else
       _ -> :error
     end
+  end
+
+  def update_user_email_noconfirm(user, email) do
+    user
+    |> User.email_changeset(%{email: email})
+    |> Repo.update()
   end
 
   defp user_email_multi(user, email, context) do
@@ -381,7 +386,7 @@ defmodule Bundesbattle.Accounts do
   def create_user(attrs, opts \\ []) do
     attrs =
       case Keyword.get(opts, :random_password, false) do
-        true -> %{attrs | password: random_password()}
+        true -> Map.put(attrs, :password, random_password())
         false -> attrs
       end
 
