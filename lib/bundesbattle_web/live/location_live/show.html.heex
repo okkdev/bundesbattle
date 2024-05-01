@@ -1,0 +1,33 @@
+<.header>
+  Location <%= @location.id %>
+  <:subtitle>This is a location record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/manage/locations/#{@location}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit location</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Region"><%= @location.region %></:item>
+  <:item title="Name"><%= @location.name %></:item>
+  <:item title="Address"><%= @location.address %></:item>
+  <:item title="Zip"><%= @location.zip %></:item>
+  <:item title="City"><%= @location.city %></:item>
+  <:item title="Location url"><%= @location.location_url %></:item>
+  <:item title="Latitude"><%= @location.latitude %></:item>
+  <:item title="Longitude"><%= @location.longitude %></:item>
+</.list>
+
+<.back navigate={~p"/manage/locations"}>Back to locations</.back>
+
+<.modal :if={@live_action == :edit} id="location-modal" show on_cancel={JS.patch(~p"/manage/locations/#{@location}")}>
+  <.live_component
+    module={BundesbattleWeb.LocationLive.FormComponent}
+    id={@location.id}
+    title={@page_title}
+    action={@live_action}
+    location={@location}
+    patch={~p"/manage/locations/#{@location}"}
+  />
+</.modal>

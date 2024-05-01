@@ -5,7 +5,7 @@ defmodule Bundesbattle.Repo.Migrations.CreateUsersAuthTables do
     create table(:users, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :name, :string
-      add :nickname, :string, null: false
+      add :nickname, :string, null: false, collate: :nocase
       add :canton, :string
       add :discord_user, :string, null: false
       add :image, :string

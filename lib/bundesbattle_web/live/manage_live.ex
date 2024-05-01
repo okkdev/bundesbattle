@@ -15,6 +15,12 @@ defmodule BundesbattleWeb.ManageLive do
         Manage Tournaments
       </.button>
     </.link>
+
+    <.link href={~p"/manage/locations"}>
+      <.button>
+        Manage Locations
+      </.button>
+    </.link>
     """
   end
 end

@@ -1,0 +1,50 @@
+<.header>
+  Listing Locations
+  <:actions>
+    <.link patch={~p"/manage/locations/new"}>
+      <.button>New Location</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="locations"
+  rows={@streams.locations}
+  row_click={fn {_id, location} -> JS.navigate(~p"/manage/locations/#{location}") end}
+>
+  <:col :let={{_id, location}} label="Region"><%= location.region %></:col>
+  <:col :let={{_id, location}} label="Name"><%= location.name %></:col>
+  <:col :let={{_id, location}} label="Address"><%= location.address %></:col>
+  <:col :let={{_id, location}} label="Zip"><%= location.zip %></:col>
+  <:col :let={{_id, location}} label="City"><%= location.city %></:col>
+  <:col :let={{_id, location}} label="Location url"><%= location.location_url %></:col>
+  <:col :let={{_id, location}} label="Latitude"><%= location.latitude %></:col>
+  <:col :let={{_id, location}} label="Longitude"><%= location.longitude %></:col>
+  <:action :let={{_id, location}}>
+    <div class="sr-only">
+      <.link navigate={~p"/manage/locations/#{location}"}>Show</.link>
+    </div>
+    <.link patch={~p"/manage/locations/#{location}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, location}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: location.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.back navigate={~p"/manage"}>Back</.back>
+
+<.modal :if={@live_action in [:new, :edit]} id="location-modal" show on_cancel={JS.patch(~p"/manage/locations")}>
+  <.live_component
+    module={BundesbattleWeb.LocationLive.FormComponent}
+    id={@location.id || :new}
+    title={@page_title}
+    action={@live_action}
+    location={@location}
+    patch={~p"/manage/locations"}
+  />
+</.modal>

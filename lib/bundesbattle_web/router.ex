@@ -101,6 +101,13 @@ defmodule BundesbattleWeb.Router do
       on_mount: [{BundesbattleWeb.UserAuth, :ensure_organizer}] do
       live "/", ManageLive
 
+      live "/locations", LocationLive.Index, :index
+      live "/locations/new", LocationLive.Index, :new
+      live "/locations/:id/edit", LocationLive.Index, :edit
+
+      live "/locations/:id", LocationLive.Show, :show
+      live "/locations/:id/show/edit", LocationLive.Show, :edit
+
       live "/tournaments", TournamentLive.Index, :index
       live "/tournaments/new", TournamentLive.Index, :new
       live "/tournaments/:id/edit", TournamentLive.Index, :edit

@@ -13,12 +13,48 @@
   <:item title="Bracket Link"><%= @tournament.bracket_link %></:item>
   <:item title="Datetime"><%= @tournament.datetime %></:item>
   <:item title="Game"><%= @tournament.game %></:item>
-  <:item title="Region"><%= @tournament.region %></:item>
+  <:item title="Location"><%= @tournament.location.name %></:item>
+  <:item title="Region"><%= @tournament.location.region %></:item>
 </.list>
+
+<.simple_form for={@player_form} id="tournament-player-form" phx-submit="save">
+  <.input field={@player_form[:placement]} type="number" label="Placement" />
+  <.input
+    field={@player_form[:player_id]}
+    type="text"
+    label="Player"
+    list="players"
+    autocomplete="off"
+  />
+  <datalist id="players" class="max-h-48 border-0">
+    <option :for={player <- @users} value={player.id}><%= player.nickname %></option>
+  </datalist>
+  <:actions>
+    <.button phx-disable-with="Adding...">Add</.button>
+  </:actions>
+</.simple_form>
+
+<.table id="tournament-players" rows={@streams.players}>
+  <:col :let={{_id, player}} label="Placement"><%= player.placement %></:col>
+  <:col :let={{_id, player}} label="Username"><%= player.player.nickname %></:col>
+  <:action :let={{id, player}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: player.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
 
 <.back navigate={~p"/manage/tournaments"}>Back to tournaments</.back>
 
-<.modal :if={@live_action == :edit} id="tournament-modal" show on_cancel={JS.patch(~p"/manage/tournaments/#{@tournament}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="tournament-modal"
+  show
+  on_cancel={JS.patch(~p"/manage/tournaments/#{@tournament}")}
+>
   <.live_component
     module={BundesbattleWeb.TournamentLive.FormComponent}
     id={@tournament.id}

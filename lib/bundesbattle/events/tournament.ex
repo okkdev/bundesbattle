@@ -9,7 +9,7 @@ defmodule Bundesbattle.Events.Tournament do
     field :bracket_link, :string
     field :datetime, :naive_datetime
     field :game, Ecto.Enum, values: [:tekken, :streetfighter]
-    field :region, Ecto.Enum, values: [:basel, :lausanne, :zurich, :direct_qualifier]
+    belongs_to :location, Bundesbattle.Regions.Location
 
     many_to_many :players, Bundesbattle.Accounts.User,
       join_through: Bundesbattle.Events.TournamentPlayer
@@ -20,26 +20,8 @@ defmodule Bundesbattle.Events.Tournament do
   @doc false
   def changeset(tournament, attrs) do
     tournament
-    |> cast(attrs, [:name, :bracket_link, :datetime, :game, :region])
-    |> validate_required([:name, :datetime, :game, :region])
-    |> validate_url(:bracket_link)
-  end
-
-  defp validate_url(changeset, field, opts \\ []) do
-    validate_change(changeset, field, fn _, value ->
-      case URI.parse(value) do
-        %URI{scheme: nil} ->
-          [{field, Keyword.get(opts, :message, "missing a scheme (e.g. https)")}]
-
-        %URI{host: nil} ->
-          [{field, Keyword.get(opts, :message, "missing a host")}]
-
-        %URI{host: ""} ->
-          [{field, Keyword.get(opts, :message, "missing a host")}]
-
-        _ ->
-          []
-      end
-    end)
+    |> cast(attrs, [:name, :bracket_link, :datetime, :game, :location_id])
+    |> validate_required([:name, :datetime, :game, :location_id])
+    |> Bundesbattle.Utils.validate_url(:bracket_link)
   end
 end

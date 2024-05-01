@@ -78,6 +78,8 @@ defmodule Bundesbattle.Accounts.User do
     user
     |> cast(attrs, [:email, :password, :nickname, :discord_user, :image])
     |> validate_required([:nickname])
+    |> unsafe_validate_unique(:nickname, Bundesbattle.Repo)
+    |> unique_constraint(:nickname)
     |> validate_email(opts)
     |> validate_password(opts)
   end
@@ -86,6 +88,8 @@ defmodule Bundesbattle.Accounts.User do
     user
     |> cast(attrs, [:name, :nickname, :discord_user, :image, :role, :canton])
     |> validate_required([:nickname])
+    |> unsafe_validate_unique(:nickname, Bundesbattle.Repo)
+    |> unique_constraint(:nickname)
   end
 
   defp validate_email(changeset, opts) do

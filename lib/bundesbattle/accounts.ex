@@ -27,11 +27,13 @@ defmodule Bundesbattle.Accounts do
   end
 
   def get_user_by_nickname(nickname) when is_binary(nickname) do
-    nickname = String.downcase(nickname)
+    # nickname = String.downcase(nickname)
+    #
+    # from u in User,
+    #   where: fragment("LOWER(?) = ?", u.nickname, ^nickname),
+    #   select: u
 
-    from u in User,
-      where: fragment("LOWER(?) = ?", u.nickname, ^nickname),
-      select: u
+    Repo.get_by(User, nickname: nickname)
   end
 
   def get_user_by_discord_username(discord_user) when is_binary(discord_user) do
@@ -238,7 +240,6 @@ defmodule Bundesbattle.Accounts do
   Generates a session token.
   """
   def generate_user_session_token(user) do
-    IO.inspect(user)
     {token, user_token} = UserToken.build_session_token(user)
     Repo.insert!(user_token)
     token

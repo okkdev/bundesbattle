@@ -6,7 +6,6 @@ defmodule BundesbattleWeb.UserLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    IO.inspect(socket)
     {:ok, stream(socket, :users, Accounts.list_users())}
   end
 

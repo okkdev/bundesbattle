@@ -2,6 +2,7 @@ defmodule BundesbattleWeb.TournamentLive.Index do
   use BundesbattleWeb, :live_view
 
   alias Bundesbattle.Events
+  alias Bundesbattle.Regions
   alias Bundesbattle.Events.Tournament
 
   @impl true
@@ -17,12 +18,14 @@ defmodule BundesbattleWeb.TournamentLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Tournament")
+    |> assign(:locations, Regions.list_locations())
     |> assign(:tournament, Events.get_tournament!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Tournament")
+    |> assign(:locations, Regions.list_locations())
     |> assign(:tournament, %Tournament{})
   end
 

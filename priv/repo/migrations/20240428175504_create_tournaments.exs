@@ -8,7 +8,7 @@ defmodule Bundesbattle.Repo.Migrations.CreateTournaments do
       add :bracket_link, :string
       add :datetime, :naive_datetime
       add :game, :string
-      add :region, :string
+      add :location_id, references(:locations, on_delete: :nothing, type: :binary_id)
 
       timestamps(type: :utc_datetime)
     end

@@ -2,6 +2,7 @@ defmodule BundesbattleWeb.TournamentLive.FormComponent do
   use BundesbattleWeb, :live_component
 
   alias Bundesbattle.Events
+  alias Bundesbattle.Repo
 
   @impl true
   def render(assigns) do
@@ -30,11 +31,11 @@ defmodule BundesbattleWeb.TournamentLive.FormComponent do
           options={Ecto.Enum.values(Bundesbattle.Events.Tournament, :game)}
         />
         <.input
-          field={@form[:region]}
+          field={@form[:location_id]}
           type="select"
-          label="Region"
+          label="Location"
           prompt="Choose a value"
-          options={Ecto.Enum.values(Bundesbattle.Events.Tournament, :region)}
+          options={@locations |> Enum.map(&{&1.name, &1.id})}
         />
         <:actions>
           <.button phx-disable-with="Saving...">Save Tournament</.button>
@@ -46,7 +47,10 @@ defmodule BundesbattleWeb.TournamentLive.FormComponent do
 
   @impl true
   def update(%{tournament: tournament} = assigns, socket) do
-    changeset = Events.change_tournament(tournament)
+    changeset =
+      tournament
+      |> Repo.preload(:location)
+      |> Events.change_tournament()
 
     {:ok,
      socket

@@ -15,7 +15,7 @@ defmodule Bundesbattle.Events.TournamentPlayer do
   @doc false
   def changeset(tournament_player, attrs) do
     tournament_player
-    |> cast(attrs, [:placement])
-    |> validate_required([:placement])
+    |> cast(attrs, [:placement, :tournament_id, :player_id])
+    |> validate_required([:placement, :tournament_id, :player_id])
   end
 end

@@ -7,6 +7,7 @@ defmodule Bundesbattle.Events do
   alias Bundesbattle.Repo
 
   alias Bundesbattle.Events.Tournament
+  alias Bundesbattle.Events.TournamentPlayer
 
   @doc """
   Returns the list of tournaments.
@@ -19,6 +20,7 @@ defmodule Bundesbattle.Events do
   """
   def list_tournaments do
     Repo.all(Tournament)
+    |> Repo.preload(:location)
   end
 
   @doc """
@@ -35,7 +37,10 @@ defmodule Bundesbattle.Events do
       ** (Ecto.NoResultsError)
 
   """
-  def get_tournament!(id), do: Repo.get!(Tournament, id)
+  def get_tournament!(id) do
+    Repo.get!(Tournament, id)
+    |> Repo.preload(:location)
+  end
 
   @doc """
   Creates a tournament.
@@ -100,5 +105,33 @@ defmodule Bundesbattle.Events do
   """
   def change_tournament(%Tournament{} = tournament, attrs \\ %{}) do
     Tournament.changeset(tournament, attrs)
+  end
+
+  def get_tournament_player!(id) do
+    Repo.get!(TournamentPlayer, id)
+    |> Repo.preload(:player)
+  end
+
+  def change_tournament_player(%TournamentPlayer{} = tournament_player, attrs \\ %{}) do
+    TournamentPlayer.changeset(tournament_player, attrs)
+  end
+
+  def create_tournament_player(attrs \\ %{}) do
+    %TournamentPlayer{}
+    |> TournamentPlayer.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def delete_tournament_player(%TournamentPlayer{} = tournament_player) do
+    Repo.delete(tournament_player)
+  end
+
+  def preload_tournament_player(%TournamentPlayer{} = tournament_player) do
+    Repo.preload(tournament_player, :player)
+  end
+
+  def list_tournament_players_for_tournament(tournament_id) do
+    Repo.all(TournamentPlayer, tournament_id: tournament_id)
+    |> Repo.preload(:player)
   end
 end
