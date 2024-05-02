@@ -14,7 +14,7 @@
   <:item title="Datetime"><%= @tournament.datetime %></:item>
   <:item title="Game"><%= @tournament.game %></:item>
   <:item title="Location"><%= @tournament.location.name %></:item>
-  <:item title="Region"><%= @tournament.location.region %></:item>
+  <:item title="Region"><%= @tournament.location.region.name %></:item>
 </.list>
 
 <.simple_form for={@player_form} id="tournament-player-form" phx-submit="save">

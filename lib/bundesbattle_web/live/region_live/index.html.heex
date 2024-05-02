@@ -1,0 +1,49 @@
+<.header>
+  Listing Regions
+  <:actions>
+    <.link patch={~p"/manage/regions/new"}>
+      <.button>New Region</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="regions"
+  rows={@streams.regions}
+  row_click={fn {_id, region} -> JS.navigate(~p"/manage/regions/#{region}") end}
+>
+  <:col :let={{_id, region}} label="Name"><%= region.name %></:col>
+  <:col :let={{_id, region}} label="Qualifier type"><%= region.qualifier_type %></:col>
+  <:action :let={{_id, region}}>
+    <div class="sr-only">
+      <.link navigate={~p"/manage/regions/#{region}"}>Show</.link>
+    </div>
+    <.link patch={~p"/manage/regions/#{region}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, region}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: region.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.back navigate={~p"/manage"}>Back</.back>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="region-modal"
+  show
+  on_cancel={JS.patch(~p"/manage/regions")}
+>
+  <.live_component
+    module={BundesbattleWeb.RegionLive.FormComponent}
+    id={@region.id || :new}
+    title={@page_title}
+    action={@live_action}
+    region={@region}
+    patch={~p"/manage/regions"}
+  />
+</.modal>

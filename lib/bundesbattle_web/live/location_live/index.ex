@@ -17,12 +17,14 @@ defmodule BundesbattleWeb.LocationLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Location")
+    |> assign(:regions, Regions.list_regions())
     |> assign(:location, Regions.get_location!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Location")
+    |> assign(:regions, Regions.list_regions())
     |> assign(:location, %Location{})
   end
 

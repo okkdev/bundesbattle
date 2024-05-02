@@ -375,9 +375,9 @@ defmodule Bundesbattle.Accounts do
   end
 
   def fetch_or_create_user(attrs, opts \\ []) do
-    case get_user_by_email(attrs.email) do
+    case get_user_by_discord_username(attrs.discord_user) do
       %User{} = user ->
-        {:ok, user}
+        maybe_update_user_empty_fields(user, attrs)
 
       _ ->
         create_user(attrs, opts)
@@ -400,6 +400,15 @@ defmodule Bundesbattle.Accounts do
     user
     |> User.update_changeset(attrs)
     |> Repo.update()
+  end
+
+  def maybe_update_user_empty_fields(%User{} = user, attrs) do
+    attrs = Map.filter(attrs, fn {key, _val} -> is_nil(Map.get(user, key)) end)
+
+    case map_size(attrs) do
+      0 -> {:ok, user}
+      _ -> update_user(user, attrs)
+    end
   end
 
   def change_user(%User{} = user, attrs \\ %{}) do

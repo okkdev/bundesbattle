@@ -24,4 +24,19 @@ defmodule Bundesbattle.RegionsFixtures do
 
     location
   end
+
+  @doc """
+  Generate a region.
+  """
+  def region_fixture(attrs \\ %{}) do
+    {:ok, region} =
+      attrs
+      |> Enum.into(%{
+        name: "some name",
+        qualifier_type: :monthly
+      })
+      |> Bundesbattle.Regions.create_region()
+
+    region
+  end
 end

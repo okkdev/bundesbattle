@@ -2,6 +2,7 @@ defmodule BundesbattleWeb.LocationLive.FormComponent do
   use BundesbattleWeb, :live_component
 
   alias Bundesbattle.Regions
+  alias Bundesbattle.Repo
 
   @impl true
   def render(assigns) do
@@ -19,7 +20,13 @@ defmodule BundesbattleWeb.LocationLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:region]} type="text" label="Region" />
+        <.input
+          field={@form[:region_id]}
+          type="select"
+          label="Region"
+          prompt="Choose a value"
+          options={@regions |> Enum.map(&{&1.name, &1.id})}
+        />
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:address]} type="text" label="Address" />
         <.input field={@form[:zip]} type="number" label="Zip" />
@@ -37,7 +44,10 @@ defmodule BundesbattleWeb.LocationLive.FormComponent do
 
   @impl true
   def update(%{location: location} = assigns, socket) do
-    changeset = Regions.change_location(location)
+    changeset =
+      location
+      |> Repo.preload(:region)
+      |> Regions.change_location()
 
     {:ok,
      socket
@@ -62,6 +72,7 @@ defmodule BundesbattleWeb.LocationLive.FormComponent do
   defp save_location(socket, :edit, location_params) do
     case Regions.update_location(socket.assigns.location, location_params) do
       {:ok, location} ->
+        location = Repo.preload(location, :region)
         notify_parent({:saved, location})
 
         {:noreply,
@@ -77,6 +88,7 @@ defmodule BundesbattleWeb.LocationLive.FormComponent do
   defp save_location(socket, :new, location_params) do
     case Regions.create_location(location_params) do
       {:ok, location} ->
+        location = Repo.preload(location, :region)
         notify_parent({:saved, location})
 
         {:noreply,

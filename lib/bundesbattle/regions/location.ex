@@ -5,7 +5,6 @@ defmodule Bundesbattle.Regions.Location do
   @primary_key {:id, Uniq.UUID, version: 7, autogenerate: true}
   @foreign_key_type Uniq.UUID
   schema "locations" do
-    field :region, :string
     field :name, :string
     field :address, :string
     field :zip, :integer
@@ -13,6 +12,7 @@ defmodule Bundesbattle.Regions.Location do
     field :location_url, :string
     field :latitude, :float
     field :longitude, :float
+    belongs_to :region, Bundesbattle.Regions.Region
     has_many :tournaments, Bundesbattle.Events.Tournament
 
     timestamps(type: :utc_datetime)
@@ -21,10 +21,17 @@ defmodule Bundesbattle.Regions.Location do
   @doc false
   def changeset(location, attrs) do
     location
-    |> cast(attrs, [:region, :name, :address, :zip, :city, :location_url, :latitude, :longitude])
-    |> validate_required([
-      :region
+    |> cast(attrs, [
+      :region_id,
+      :name,
+      :address,
+      :zip,
+      :city,
+      :location_url,
+      :latitude,
+      :longitude
     ])
+    |> validate_required([:region_id, :name])
     |> Bundesbattle.Utils.validate_url(:location_url)
   end
 end

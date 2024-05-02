@@ -39,7 +39,7 @@ defmodule Bundesbattle.Events do
   """
   def get_tournament!(id) do
     Repo.get!(Tournament, id)
-    |> Repo.preload(:location)
+    |> Repo.preload(location: :region)
   end
 
   @doc """

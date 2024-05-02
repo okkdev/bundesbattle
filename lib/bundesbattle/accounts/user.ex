@@ -45,8 +45,7 @@ defmodule Bundesbattle.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
-    many_to_many :tournaments, Bundesbattle.Events.Tournament,
-      join_through: Bundesbattle.Events.TournamentPlayer
+    has_many :tournament_placements, Bundesbattle.Events.TournamentPlayer
 
     timestamps(type: :utc_datetime)
   end

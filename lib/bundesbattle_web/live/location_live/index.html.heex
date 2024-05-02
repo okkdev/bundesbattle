@@ -12,7 +12,7 @@
   rows={@streams.locations}
   row_click={fn {_id, location} -> JS.navigate(~p"/manage/locations/#{location}") end}
 >
-  <:col :let={{_id, location}} label="Region"><%= location.region %></:col>
+  <:col :let={{_id, location}} label="Region"><%= location.region.name %></:col>
   <:col :let={{_id, location}} label="Name"><%= location.name %></:col>
   <:col :let={{_id, location}} label="Address"><%= location.address %></:col>
   <:col :let={{_id, location}} label="Zip"><%= location.zip %></:col>
@@ -38,13 +38,19 @@
 
 <.back navigate={~p"/manage"}>Back</.back>
 
-<.modal :if={@live_action in [:new, :edit]} id="location-modal" show on_cancel={JS.patch(~p"/manage/locations")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="location-modal"
+  show
+  on_cancel={JS.patch(~p"/manage/locations")}
+>
   <.live_component
     module={BundesbattleWeb.LocationLive.FormComponent}
     id={@location.id || :new}
     title={@page_title}
     action={@live_action}
     location={@location}
+    regions={@regions}
     patch={~p"/manage/locations"}
   />
 </.modal>

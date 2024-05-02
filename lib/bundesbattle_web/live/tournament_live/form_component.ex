@@ -75,6 +75,7 @@ defmodule BundesbattleWeb.TournamentLive.FormComponent do
   defp save_tournament(socket, :edit, tournament_params) do
     case Events.update_tournament(socket.assigns.tournament, tournament_params) do
       {:ok, tournament} ->
+        tournament = Repo.preload(tournament, :location)
         notify_parent({:saved, tournament})
 
         {:noreply,
@@ -90,6 +91,7 @@ defmodule BundesbattleWeb.TournamentLive.FormComponent do
   defp save_tournament(socket, :new, tournament_params) do
     case Events.create_tournament(tournament_params) do
       {:ok, tournament} ->
+        tournament = Repo.preload(tournament, :location)
         notify_parent({:saved, tournament})
 
         {:noreply,

@@ -4,7 +4,6 @@ defmodule Bundesbattle.Repo.Migrations.CreateLocations do
   def change do
     create table(:locations, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :region, :string
       add :name, :string
       add :address, :string
       add :zip, :integer
@@ -12,6 +11,7 @@ defmodule Bundesbattle.Repo.Migrations.CreateLocations do
       add :location_url, :string
       add :latitude, :float
       add :longitude, :float
+      add :region_id, references(:regions, on_delete: :nothing, type: :binary_id)
 
       timestamps(type: :utc_datetime)
     end

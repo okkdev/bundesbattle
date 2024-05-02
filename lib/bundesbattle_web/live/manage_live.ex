@@ -4,15 +4,21 @@ defmodule BundesbattleWeb.ManageLive do
   @impl true
   def render(assigns) do
     ~H"""
+    <.link href={~p"/manage/tournaments"}>
+      <.button>
+        Manage Tournaments
+      </.button>
+    </.link>
+
     <.link href={~p"/manage/users"}>
       <.button>
         Manage Users
       </.button>
     </.link>
 
-    <.link href={~p"/manage/tournaments"}>
+    <.link href={~p"/manage/regions"}>
       <.button>
-        Manage Tournaments
+        Manage Regions
       </.button>
     </.link>
 
