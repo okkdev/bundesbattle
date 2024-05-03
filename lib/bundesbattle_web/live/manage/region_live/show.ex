@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.RegionLive.Show do
+defmodule BundesbattleWeb.Manage.RegionLive.Show do
   use BundesbattleWeb, :live_view
 
   alias Bundesbattle.Regions

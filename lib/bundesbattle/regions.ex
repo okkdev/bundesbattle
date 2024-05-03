@@ -138,6 +138,11 @@ defmodule Bundesbattle.Regions do
   """
   def get_region!(id), do: Repo.get!(Region, id)
 
+  def get_region_by_slug!(slug) do
+    Repo.get_by!(Region, slug: slug)
+    |> Repo.preload(locations: [tournaments: [players: :player]])
+  end
+
   @doc """
   Creates a region.
 

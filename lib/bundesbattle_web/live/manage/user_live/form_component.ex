@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.UserLive.FormComponent do
+defmodule BundesbattleWeb.Manage.UserLive.FormComponent do
   use BundesbattleWeb, :live_component
 
   alias Bundesbattle.Accounts

@@ -25,7 +25,7 @@
   on_cancel={JS.patch(~p"/manage/users/#{@user}")}
 >
   <.live_component
-    module={BundesbattleWeb.UserLive.FormComponent}
+    module={BundesbattleWeb.Manage.UserLive.FormComponent}
     id={@user.id}
     title={@page_title}
     action={@live_action}

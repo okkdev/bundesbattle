@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.LocationLive.FormComponent do
+defmodule BundesbattleWeb.Manage.LocationLive.FormComponent do
   use BundesbattleWeb, :live_component
 
   alias Bundesbattle.Regions

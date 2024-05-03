@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.TournamentLive.Show do
+defmodule BundesbattleWeb.Manage.TournamentLive.Show do
   use BundesbattleWeb, :live_view
 
   alias Bundesbattle.Events

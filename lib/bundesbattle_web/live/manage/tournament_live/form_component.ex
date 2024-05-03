@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.TournamentLive.FormComponent do
+defmodule BundesbattleWeb.Manage.TournamentLive.FormComponent do
   use BundesbattleWeb, :live_component
 
   alias Bundesbattle.Events

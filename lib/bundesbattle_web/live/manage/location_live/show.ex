@@ -1,7 +1,7 @@
-defmodule BundesbattleWeb.UserLive.Show do
+defmodule BundesbattleWeb.Manage.LocationLive.Show do
   use BundesbattleWeb, :live_view
 
-  alias Bundesbattle.Accounts
+  alias Bundesbattle.Regions
 
   @impl true
   def mount(_params, _session, socket) do
@@ -13,9 +13,9 @@ defmodule BundesbattleWeb.UserLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:user, Accounts.get_user!(id))}
+     |> assign(:location, Regions.get_location!(id))}
   end
 
-  defp page_title(:show), do: "Show User"
-  defp page_title(:edit), do: "Edit User"
+  defp page_title(:show), do: "Show Location"
+  defp page_title(:edit), do: "Edit Location"
 end

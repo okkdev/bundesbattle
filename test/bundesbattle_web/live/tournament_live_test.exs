@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.TournamentLiveTest do
+defmodule BundesbattleWeb.Manage.TournamentLiveTest do
   use BundesbattleWeb.ConnCase
 
   import Phoenix.LiveViewTest

@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.RegionLive.Index do
+defmodule BundesbattleWeb.Manage.RegionLive.Index do
   use BundesbattleWeb, :live_view
 
   alias Bundesbattle.Regions
@@ -33,7 +33,7 @@ defmodule BundesbattleWeb.RegionLive.Index do
   end
 
   @impl true
-  def handle_info({BundesbattleWeb.RegionLive.FormComponent, {:saved, region}}, socket) do
+  def handle_info({BundesbattleWeb.Manage.RegionLive.FormComponent, {:saved, region}}, socket) do
     {:noreply, stream_insert(socket, :regions, region)}
   end
 

@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.RegionLive.FormComponent do
+defmodule BundesbattleWeb.Manage.RegionLive.FormComponent do
   use BundesbattleWeb, :live_component
 
   alias Bundesbattle.Regions
@@ -20,6 +20,7 @@ defmodule BundesbattleWeb.RegionLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:name]} type="text" label="Name" />
+        <.input field={@form[:slug]} type="text" label="Slug (what will be shown in the URL)" />
         <.input
           field={@form[:qualifier_type]}
           type="select"

@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.TournamentLive.Index do
+defmodule BundesbattleWeb.Manage.TournamentLive.Index do
   use BundesbattleWeb, :live_view
 
   alias Bundesbattle.Events
@@ -36,7 +36,7 @@ defmodule BundesbattleWeb.TournamentLive.Index do
   end
 
   @impl true
-  def handle_info({BundesbattleWeb.TournamentLive.FormComponent, {:saved, tournament}}, socket) do
+  def handle_info({BundesbattleWeb.Manage.TournamentLive.FormComponent, {:saved, tournament}}, socket) do
     {:noreply, stream_insert(socket, :tournaments, tournament)}
   end
 

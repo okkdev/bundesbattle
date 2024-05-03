@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.UserLive.Index do
+defmodule BundesbattleWeb.Manage.UserLive.Index do
   use BundesbattleWeb, :live_view
 
   alias Bundesbattle.Accounts
@@ -33,7 +33,7 @@ defmodule BundesbattleWeb.UserLive.Index do
   end
 
   @impl true
-  def handle_info({BundesbattleWeb.UserLive.FormComponent, {:saved, user}}, socket) do
+  def handle_info({BundesbattleWeb.Manage.UserLive.FormComponent, {:saved, user}}, socket) do
     {:noreply, stream_insert(socket, :users, user)}
   end
 

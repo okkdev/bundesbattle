@@ -23,7 +23,7 @@
 
 <.modal :if={@live_action == :edit} id="location-modal" show on_cancel={JS.patch(~p"/manage/locations/#{@location}")}>
   <.live_component
-    module={BundesbattleWeb.LocationLive.FormComponent}
+    module={BundesbattleWeb.Manage.LocationLive.FormComponent}
     id={@location.id}
     title={@page_title}
     action={@live_action}

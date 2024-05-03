@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.LocationLiveTest do
+defmodule BundesbattleWeb.Manage.LocationLiveTest do
   use BundesbattleWeb.ConnCase
 
   import Phoenix.LiveViewTest

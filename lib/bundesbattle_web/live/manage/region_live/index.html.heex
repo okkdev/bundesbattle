@@ -39,7 +39,7 @@
   on_cancel={JS.patch(~p"/manage/regions")}
 >
   <.live_component
-    module={BundesbattleWeb.RegionLive.FormComponent}
+    module={BundesbattleWeb.Manage.RegionLive.FormComponent}
     id={@region.id || :new}
     title={@page_title}
     action={@live_action}

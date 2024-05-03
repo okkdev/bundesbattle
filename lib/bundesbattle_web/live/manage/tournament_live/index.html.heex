@@ -42,7 +42,7 @@
   on_cancel={JS.patch(~p"/manage/tournaments")}
 >
   <.live_component
-    module={BundesbattleWeb.TournamentLive.FormComponent}
+    module={BundesbattleWeb.Manage.TournamentLive.FormComponent}
     id={@tournament.id || :new}
     title={@page_title}
     action={@live_action}

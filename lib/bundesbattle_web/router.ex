@@ -22,9 +22,9 @@ defmodule BundesbattleWeb.Router do
 
     get "/", PageController, :home
 
-    get "/basel", BaselController, :index
-    # get "/zurich", ZurichController, :index
-    # get "/lausanne", LausanneController, :index
+    live_session :default do
+      live "/region/:region", RegionLive
+    end
   end
 
   # Other scopes may use custom stacks.
@@ -94,7 +94,7 @@ defmodule BundesbattleWeb.Router do
     end
   end
 
-  scope "/manage", BundesbattleWeb do
+  scope "/manage", BundesbattleWeb.Manage do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_organizer,

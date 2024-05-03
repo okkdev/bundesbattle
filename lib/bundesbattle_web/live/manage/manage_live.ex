@@ -1,4 +1,4 @@
-defmodule BundesbattleWeb.ManageLive do
+defmodule BundesbattleWeb.Manage.ManageLive do
   use BundesbattleWeb, :live_view
 
   @impl true

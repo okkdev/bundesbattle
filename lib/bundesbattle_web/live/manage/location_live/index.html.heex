@@ -45,7 +45,7 @@
   on_cancel={JS.patch(~p"/manage/locations")}
 >
   <.live_component
-    module={BundesbattleWeb.LocationLive.FormComponent}
+    module={BundesbattleWeb.Manage.LocationLive.FormComponent}
     id={@location.id || :new}
     title={@page_title}
     action={@live_action}

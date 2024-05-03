@@ -6,6 +6,7 @@ defmodule Bundesbattle.Regions.Region do
   @foreign_key_type Uniq.UUID
   schema "regions" do
     field :name, :string
+    field :slug, :string
     field :qualifier_type, Ecto.Enum, values: [:monthly, :direct, :final]
     has_many :locations, Bundesbattle.Regions.Location
 
@@ -15,7 +16,10 @@ defmodule Bundesbattle.Regions.Region do
   @doc false
   def changeset(region, attrs) do
     region
-    |> cast(attrs, [:name, :qualifier_type])
-    |> validate_required([:name, :qualifier_type])
+    |> cast(attrs, [:name, :slug, :qualifier_type])
+    |> validate_required([:name, :slug, :qualifier_type])
+    |> validate_format(:slug, ~r/^[a-z0-9-]+$/)
+    |> unsafe_validate_unique(:slug, Bundesbattle.Repo)
+    |> unique_constraint(:slug)
   end
 end

@@ -36,7 +36,7 @@
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
       <ul class="flex relative z-10 gap-4 justify-end items-center px-4 sm:px-6 lg:px-8">
-        <%= if @current_user do %>
+        <%= if assigns[:current_user] do %>
           <li class="leading-6 text-[0.8125rem] text-zinc-900">
             <%= @current_user.email %>
           </li>
