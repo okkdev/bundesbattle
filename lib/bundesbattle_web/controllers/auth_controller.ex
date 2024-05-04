@@ -6,13 +6,17 @@ defmodule BundesbattleWeb.AuthController do
 
   plug Ueberauth
 
-  def callback(%{assigns: %{ueberauth_auth: %{info: user_info}}} = conn, _params) do
-    user_params = %{
-      email: user_info.email,
-      nickname: user_info.nickname,
-      discord_user: user_info.nickname,
-      image: user_info.image
-    }
+  def callback(
+        %{assigns: %{ueberauth_auth: %{info: user_info, extra: extra_info}}} = conn,
+        _params
+      ) do
+    user_params =
+      %{
+        email: user_info.email,
+        username: user_info.nickname,
+        discord_id: extra_info.raw_info.user["id"],
+        image: user_info.image
+      }
 
     case Accounts.fetch_or_create_user(user_params, random_password: true) do
       {:ok, user} ->

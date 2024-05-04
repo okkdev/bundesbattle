@@ -12,9 +12,8 @@
   rows={@streams.users}
   row_click={fn {_id, user} -> JS.navigate(~p"/manage/users/#{user}") end}
 >
-  <:col :let={{_id, user}} label="Nickname"><%= user.nickname %></:col>
-  <:col :let={{_id, user}} label="Discord User"><%= user.discord_user %></:col>
-  <:col :let={{_id, user}} label="Name"><%= user.name %></:col>
+  <:col :let={{_id, user}} label="Display Name"><%= user.display_name %></:col>
+  <:col :let={{_id, user}} label="Username"><%= user.username %></:col>
   <:col :let={{_id, user}} label="Canton"><%= user.canton %></:col>
   <:col :let={{_id, user}} label="Role"><%= user.role %></:col>
   <:action :let={{_id, user}}>

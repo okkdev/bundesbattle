@@ -7,10 +7,36 @@ defmodule BundesbattleWeb.UserSettingsLive do
     ~H"""
     <.header class="text-center">
       Account Settings
-      <:subtitle>Manage your account email address and password settings</:subtitle>
+      <:subtitle>Manage your account settings</:subtitle>
     </.header>
 
     <div class="space-y-12 divide-y">
+      <div>
+        <.simple_form
+          for={@settings_form}
+          id="settings_form"
+          phx-change="validate_settings"
+          phx-submit="save_settings"
+        >
+          <.input field={@settings_form[:display_name]} type="text" label="Display Name" />
+          <.input field={@settings_form[:username]} type="text" label="Username" />
+          <%!-- <.input field={@settings_form[:image]} type="text" label="Image URL" /> --%>
+          <.input
+            field={@settings_form[:canton]}
+            type="select"
+            label="Canton"
+            prompt="Choose a value"
+            options={
+              Ecto.Enum.values(Bundesbattle.Accounts.User, :canton)
+              |> Enum.map(&{&1 |> Atom.to_string() |> String.upcase(), &1})
+            }
+          />
+
+          <:actions>
+            <.button phx-disable-with="Saving...">Save</.button>
+          </:actions>
+        </.simple_form>
+      </div>
       <div>
         <.simple_form
           for={@email_form}
@@ -72,6 +98,7 @@ defmodule BundesbattleWeb.UserSettingsLive do
     user = socket.assigns.current_user
     email_changeset = Accounts.change_user_email(user)
     password_changeset = Accounts.change_user_password(user)
+    settings_changeset = Accounts.change_user(user)
 
     socket =
       socket
@@ -79,9 +106,35 @@ defmodule BundesbattleWeb.UserSettingsLive do
       |> assign(:current_email, user.email)
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
+      |> assign(:settings_form, to_form(settings_changeset))
       |> assign(:trigger_submit, false)
 
     {:ok, socket}
+  end
+
+  def handle_event("validate_settings", params, socket) do
+    %{"user" => user_params} = params
+
+    settings_form =
+      socket.assigns.current_user
+      |> Accounts.change_user(user_params)
+      |> Map.put(:action, :validate)
+      |> to_form()
+
+    {:noreply, assign(socket, settings_form: settings_form)}
+  end
+
+  def handle_event("save_settings", params, socket) do
+    %{"user" => user_params} = params
+    user = socket.assigns.current_user
+
+    case Accounts.update_user(user, user_params) do
+      {:ok, _} ->
+        {:noreply, socket |> put_flash(:info, "Settings saved")}
+
+      {:error, _} ->
+        {:noreply, socket |> put_flash(:error, "Error saving settings")}
+    end
   end
 
   def handle_event("validate_email", params, socket) do

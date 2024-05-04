@@ -26,18 +26,18 @@ defmodule Bundesbattle.Accounts do
     Repo.get_by(User, email: email)
   end
 
-  def get_user_by_nickname(nickname) when is_binary(nickname) do
+  def get_user_by_username(username) when is_binary(username) do
     # nickname = String.downcase(nickname)
     #
     # from u in User,
     #   where: fragment("LOWER(?) = ?", u.nickname, ^nickname),
     #   select: u
 
-    Repo.get_by(User, nickname: nickname)
+    Repo.get_by(User, username: username)
   end
 
-  def get_user_by_discord_username(discord_user) when is_binary(discord_user) do
-    Repo.get_by(User, discord_user: discord_user)
+  def get_user_by_discord_id(discord_id) when is_binary(discord_id) do
+    Repo.get_by(User, discord_id: discord_id)
   end
 
   @doc """
@@ -375,7 +375,7 @@ defmodule Bundesbattle.Accounts do
   end
 
   def fetch_or_create_user(attrs, opts \\ []) do
-    case get_user_by_discord_username(attrs.discord_user) do
+    case get_user_by_discord_id(attrs.discord_id) do
       %User{} = user ->
         maybe_update_user_empty_fields(user, attrs)
 

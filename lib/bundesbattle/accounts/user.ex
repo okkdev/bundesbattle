@@ -34,10 +34,10 @@ defmodule Bundesbattle.Accounts.User do
   @primary_key {:id, Uniq.UUID, version: 7, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
-    field :name, :string
-    field :nickname, :string
+    field :display_name, :string
+    field :username, :string
     field :canton, Ecto.Enum, values: @cantons
-    field :discord_user, :string
+    field :discord_id, :string
     field :image, :string
     field :email, :string
     field :role, Ecto.Enum, values: [:player, :organizer, :admin], default: :player
@@ -75,20 +75,20 @@ defmodule Bundesbattle.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :nickname, :discord_user, :image, :role])
-    |> validate_required([:nickname])
-    |> unsafe_validate_unique(:nickname, Bundesbattle.Repo)
-    |> unique_constraint(:nickname)
+    |> cast(attrs, [:email, :password, :username, :discord_id, :image, :role])
+    |> validate_required([:username])
+    |> unsafe_validate_unique(:username, Bundesbattle.Repo)
+    |> unique_constraint(:username)
     |> validate_email(opts)
     |> validate_password(opts)
   end
 
   def update_changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :nickname, :discord_user, :image, :role, :canton])
-    |> validate_required([:nickname])
-    |> unsafe_validate_unique(:nickname, Bundesbattle.Repo)
-    |> unique_constraint(:nickname)
+    |> cast(attrs, [:display_name, :username, :discord_id, :image, :role, :canton])
+    |> validate_required([:username])
+    |> unsafe_validate_unique(:username, Bundesbattle.Repo)
+    |> unique_constraint(:username)
   end
 
   defp validate_email(changeset, opts) do

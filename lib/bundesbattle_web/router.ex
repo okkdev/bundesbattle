@@ -21,6 +21,7 @@ defmodule BundesbattleWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    # get "/impressum", ImpressumController, :index
 
     live_session :default do
       live "/region/:region", RegionLive
@@ -86,6 +87,7 @@ defmodule BundesbattleWeb.Router do
     pipe_through [:browser]
 
     delete "/logout", UserSessionController, :delete
+    get "/logout", UserSessionController, :delete
 
     live_session :current_user,
       on_mount: [{BundesbattleWeb.UserAuth, :mount_current_user}] do

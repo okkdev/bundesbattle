@@ -4,10 +4,10 @@ defmodule Bundesbattle.Repo.Migrations.CreateUsersAuthTables do
   def change do
     create table(:users, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :name, :string
-      add :nickname, :string, null: false, collate: :nocase
+      add :display_name, :string
+      add :username, :string, null: false, collate: :nocase
       add :canton, :string
-      add :discord_user, :string, null: false
+      add :discord_id, :string
       add :image, :string
       add :email, :string, collate: :nocase
       add :role, :string, null: false
@@ -16,7 +16,7 @@ defmodule Bundesbattle.Repo.Migrations.CreateUsersAuthTables do
       timestamps(type: :utc_datetime)
     end
 
-    create unique_index(:users, [:email, :nickname])
+    create unique_index(:users, [:email, :username])
 
     create table(:users_tokens, primary_key: false) do
       add :id, :binary_id, primary_key: true

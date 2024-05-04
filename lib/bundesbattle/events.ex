@@ -107,6 +107,17 @@ defmodule Bundesbattle.Events do
     Tournament.changeset(tournament, attrs)
   end
 
+  def upcoming_tournaments() do
+    now = DateTime.utc_now()
+
+    query =
+      from t in Tournament,
+        where: t.datetime > ^now
+
+    Repo.all(query)
+    |> Repo.preload(location: :region)
+  end
+
   def get_tournament_player!(id) do
     Repo.get!(TournamentPlayer, id)
     |> Repo.preload(:player)

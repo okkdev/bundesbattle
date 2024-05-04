@@ -19,9 +19,9 @@ defmodule BundesbattleWeb.Manage.UserLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:nickname]} type="text" label="Nickname" />
-        <.input field={@form[:discord_user]} type="text" label="Discord Username" />
-        <.input field={@form[:name]} type="text" label="Name" />
+        <.input field={@form[:display_name]} type="text" label="Display Name" />
+        <.input field={@form[:username]} type="text" label="Username" />
+        <.input field={@form[:discord_id]} type="text" label="Discord ID (unique discord id number)" />
         <.input
           field={@form[:role]}
           type="select"

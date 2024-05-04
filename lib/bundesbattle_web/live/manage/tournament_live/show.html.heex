@@ -27,7 +27,7 @@
     autocomplete="off"
   />
   <datalist id="players" class="max-h-48 border-0">
-    <option :for={player <- @users} value={player.id}><%= player.nickname %></option>
+    <option :for={player <- @users} value={player.id}><%= player.username %></option>
   </datalist>
   <:actions>
     <.button phx-disable-with="Adding...">Add</.button>
@@ -36,7 +36,7 @@
 
 <.table id="tournament-players" rows={@streams.players}>
   <:col :let={{_id, player}} label="Placement"><%= player.placement %></:col>
-  <:col :let={{_id, player}} label="Username"><%= player.player.nickname %></:col>
+  <:col :let={{_id, player}} label="Username"><%= player.player.username %></:col>
   <:action :let={{id, player}}>
     <.link
       phx-click={JS.push("delete", value: %{id: player.id}) |> hide("##{id}")}
