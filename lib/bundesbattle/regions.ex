@@ -119,7 +119,7 @@ defmodule Bundesbattle.Regions do
   """
   def list_regions do
     Repo.all(Region)
-    |> Repo.preload(locations: [tournaments: [players: :player]])
+    |> Repo.preload(locations: [tournaments: [players: :user]])
   end
 
   @doc """
@@ -140,7 +140,7 @@ defmodule Bundesbattle.Regions do
 
   def get_region_by_slug!(slug) do
     Repo.get_by!(Region, slug: slug)
-    |> Repo.preload(locations: [tournaments: [players: :player]])
+    |> Repo.preload(locations: [tournaments: [[players: :user], :location]])
   end
 
   @doc """

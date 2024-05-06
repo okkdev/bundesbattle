@@ -8,7 +8,7 @@ defmodule Bundesbattle.RegionsTest do
 
     import Bundesbattle.RegionsFixtures
 
-    @invalid_attrs %{name: nil, zip: nil, address: nil, region: nil, city: nil, location_url: nil, latitude: nil, longitude: nil}
+    @invalid_attrs %{name: nil, zip: nil, address: nil, region: nil, city: nil, url: nil, latitude: nil, longitude: nil}
 
     test "list_locations/0 returns all locations" do
       location = location_fixture()
@@ -21,7 +21,7 @@ defmodule Bundesbattle.RegionsTest do
     end
 
     test "create_location/1 with valid data creates a location" do
-      valid_attrs = %{name: "some name", zip: 42, address: "some address", region: "some region", city: "some city", location_url: "some location_url", latitude: 120.5, longitude: 120.5}
+      valid_attrs = %{name: "some name", zip: 42, address: "some address", region: "some region", city: "some city", url: "some url", latitude: 120.5, longitude: 120.5}
 
       assert {:ok, %Location{} = location} = Regions.create_location(valid_attrs)
       assert location.name == "some name"
@@ -29,7 +29,7 @@ defmodule Bundesbattle.RegionsTest do
       assert location.address == "some address"
       assert location.region == "some region"
       assert location.city == "some city"
-      assert location.location_url == "some location_url"
+      assert location.url == "some url"
       assert location.latitude == 120.5
       assert location.longitude == 120.5
     end
@@ -40,7 +40,7 @@ defmodule Bundesbattle.RegionsTest do
 
     test "update_location/2 with valid data updates the location" do
       location = location_fixture()
-      update_attrs = %{name: "some updated name", zip: 43, address: "some updated address", region: "some updated region", city: "some updated city", location_url: "some updated location_url", latitude: 456.7, longitude: 456.7}
+      update_attrs = %{name: "some updated name", zip: 43, address: "some updated address", region: "some updated region", city: "some updated city", url: "some updated url", latitude: 456.7, longitude: 456.7}
 
       assert {:ok, %Location{} = location} = Regions.update_location(location, update_attrs)
       assert location.name == "some updated name"
@@ -48,7 +48,7 @@ defmodule Bundesbattle.RegionsTest do
       assert location.address == "some updated address"
       assert location.region == "some updated region"
       assert location.city == "some updated city"
-      assert location.location_url == "some updated location_url"
+      assert location.url == "some updated url"
       assert location.latitude == 456.7
       assert location.longitude == 456.7
     end

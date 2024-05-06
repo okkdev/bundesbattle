@@ -85,6 +85,7 @@ defmodule BundesbattleWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import BundesbattleWeb.CoreComponents
+      import BundesbattleWeb.Components
       import BundesbattleWeb.Gettext
 
       # Shortcut for generating JS commands

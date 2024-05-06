@@ -13,6 +13,7 @@ defmodule BundesbattleWeb.Manage.LocationLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
+     |> assign(:regions, Regions.list_regions())
      |> assign(:location, Regions.get_location!(id))}
   end
 

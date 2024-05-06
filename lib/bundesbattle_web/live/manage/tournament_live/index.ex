@@ -36,7 +36,10 @@ defmodule BundesbattleWeb.Manage.TournamentLive.Index do
   end
 
   @impl true
-  def handle_info({BundesbattleWeb.Manage.TournamentLive.FormComponent, {:saved, tournament}}, socket) do
+  def handle_info(
+        {BundesbattleWeb.Manage.TournamentLive.FormComponent, {:saved, tournament}},
+        socket
+      ) do
     {:noreply, stream_insert(socket, :tournaments, tournament)}
   end
 

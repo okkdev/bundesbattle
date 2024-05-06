@@ -1,99 +1,19 @@
-<!-- Header -->
-<header class="inset-x-0 top-0 z-50">
-  <nav class="flex justify-between items-center p-6 lg:px-8" aria-label="Global">
-    <div class="flex lg:flex-1">
-      <.link navigate={~p"/"} class="p-1.5 -m-1.5">
-        <span class="sr-only">BundesBattle</span>
-        <img class="w-auto h-8" src="/images/bundesbattle-logo.svg" alt="" />
-      </.link>
-    </div>
-    <div class="flex lg:hidden">
-      <button
-        type="button"
-        class="inline-flex justify-center items-center p-2.5 -m-2.5 text-gray-400 rounded-md"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          aria-hidden="true"
+<div class="flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="inset-x-0 top-0 z-50">
+    <nav class="flex justify-between items-center p-6 lg:px-8" aria-label="Global">
+      <div class="flex lg:flex-1">
+        <.link navigate={~p"/"} class="p-1.5 -m-1.5">
+          <span class="sr-only">BundesBattle</span>
+          <img class="w-auto h-8" src="/images/bundesbattle-logo.svg" alt="" />
+        </.link>
+      </div>
+      <div class="flex lg:hidden">
+        <button
+          type="button"
+          class="inline-flex justify-center items-center p-2.5 -m-2.5 text-gray-400 rounded-md"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
-      </button>
-    </div>
-    <div class="hidden lg:flex lg:gap-x-12">
-      <a href="#" class="text-sm font-semibold leading-6 text-white">Zürich</a>
-      <a href="#" class="text-sm font-semibold leading-6 text-white">Basel</a>
-      <a href="#" class="text-sm font-semibold leading-6 text-white">Lausanne</a>
-    </div>
-    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <ul class="flex relative z-10 gap-4 justify-end items-center px-4 sm:px-6 lg:px-8">
-        <%= if assigns[:current_user] do %>
-          <li class="leading-6 text-[0.8125rem] text-zinc-900">
-            <%= @current_user.email %>
-          </li>
-          <li>
-            <.link
-              href={~p"/user/settings"}
-              class="font-semibold leading-6 text-[0.8125rem] text-zinc-900 hover:text-zinc-700"
-            >
-              Settings
-            </.link>
-          </li>
-          <li>
-            <.link
-              href={~p"/logout"}
-              method="delete"
-              class="font-semibold leading-6 text-[0.8125rem] text-zinc-900 hover:text-zinc-700"
-            >
-              Log out
-            </.link>
-          </li>
-        <% else %>
-          <%!-- <li> --%>
-          <%!--   <.link --%>
-          <%!--     href={~p"/register"} --%>
-          <%!--     class="font-semibold leading-6 text-[0.8125rem] text-zinc-900 hover:text-zinc-700" --%>
-          <%!--   > --%>
-          <%!--     Register --%>
-          <%!--   </.link> --%>
-          <%!-- </li> --%>
-          <li>
-            <.link
-              href={~p"/login"}
-              class="font-semibold leading-6 text-[0.8125rem] text-zinc-900 hover:text-zinc-700"
-            >
-              Log in
-            </.link>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </nav>
-  <!-- Mobile menu, show/hide based on menu open state. -->
-  <div class="lg:hidden" role="dialog" aria-modal="true">
-    <!-- Background backdrop, show/hide based on slide-over state. -->
-    <div class="fixed inset-0 z-50"></div>
-    <div class="overflow-y-auto fixed inset-y-0 right-0 z-50 py-6 px-6 w-full bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-      <div class="flex justify-between items-center">
-        <a href="#" class="p-1.5 -m-1.5">
-          <span class="sr-only">Your Company</span>
-          <img
-            class="w-auto h-8"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt=""
-          />
-        </a>
-        <button type="button" class="p-2.5 -m-2.5 text-gray-700 rounded-md">
-          <span class="sr-only">Close menu</span>
+          <span class="sr-only">Open main menu</span>
           <svg
             class="w-6 h-6"
             fill="none"
@@ -102,55 +22,146 @@
             stroke="currentColor"
             aria-hidden="true"
           >
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
           </svg>
         </button>
       </div>
-      <div class="flow-root mt-6">
-        <div class="-my-6 divide-y divide-gray-500/10">
-          <div class="py-6 space-y-2">
-            <a
-              href="#"
-              class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+      <div class="hidden lg:flex lg:gap-x-12">
+        <.link navigate={~p"/region/zurich"} class="text-sm font-semibold leading-6 text-white">
+          Zürich
+        </.link>
+        <.link navigate={~p"/region/basel"} class="text-sm font-semibold leading-6 text-white">
+          Basel
+        </.link>
+        <.link navigate={~p"/region/lausanne"} class="text-sm font-semibold leading-6 text-white">
+          Lausanne
+        </.link>
+      </div>
+      <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+        <ul class="flex relative z-10 gap-4 justify-end items-center px-4 sm:px-6 lg:px-8">
+          <%= if @current_user do %>
+            <li class="leading-6 text-[0.8125rem]">
+              <%= @current_user.email %>
+            </li>
+            <li>
+              <.link
+                navigate={~p"/user/settings"}
+                class="font-semibold leading-6 text-[0.8125rem]"
+              >
+                Settings
+              </.link>
+            </li>
+            <li>
+              <.link
+                href={~p"/logout"}
+                method="delete"
+                class="font-semibold leading-6 text-[0.8125rem]"
+              >
+                Log out
+              </.link>
+            </li>
+          <% else %>
+            <%!-- <li> --%>
+            <%!--   <.link --%>
+            <%!--     href={~p"/register"} --%>
+            <%!--     class="font-semibold leading-6 text-[0.8125rem] text-zinc-900 hover:text-zinc-700" --%>
+            <%!--   > --%>
+            <%!--     Register --%>
+            <%!--   </.link> --%>
+            <%!-- </li> --%>
+            <li>
+              <.link href={~p"/login"} class="font-semibold leading-6 text-[0.8125rem]">
+                Log in
+              </.link>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    <!-- Mobile menu, show/hide based on menu open state. -->
+    <div class="lg:hidden" role="dialog" aria-modal="true">
+      <!-- Background backdrop, show/hide based on slide-over state. -->
+      <div class="fixed inset-0 z-50"></div>
+      <div class="overflow-y-auto fixed inset-y-0 right-0 z-50 py-6 px-6 w-full bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <div class="flex justify-between items-center">
+          <a href="#" class="p-1.5 -m-1.5">
+            <span class="sr-only">Your Company</span>
+            <img
+              class="w-auto h-8"
+              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              alt=""
+            />
+          </a>
+          <button type="button" class="p-2.5 -m-2.5 text-gray-700 rounded-md">
+            <span class="sr-only">Close menu</span>
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
             >
-              Product
-            </a>
-            <a
-              href="#"
-              class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
-            >
-              Features
-            </a>
-            <a
-              href="#"
-              class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
-            >
-              Marketplace
-            </a>
-            <a
-              href="#"
-              class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
-            >
-              Company
-            </a>
-          </div>
-          <div class="py-6">
-            <a
-              href="#"
-              class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
-            >
-              Log in
-            </a>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="flow-root mt-6">
+          <div class="-my-6 divide-y divide-gray-500/10">
+            <div class="py-6 space-y-2">
+              <a
+                href="#"
+                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+              >
+                Product
+              </a>
+              <a
+                href="#"
+                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+              >
+                Features
+              </a>
+              <a
+                href="#"
+                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+              >
+                Marketplace
+              </a>
+              <a
+                href="#"
+                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+              >
+                Company
+              </a>
+            </div>
+            <div class="py-6">
+              <a
+                href="#"
+                class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+              >
+                Log in
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<main class="py-20 px-4 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-7xl">
-    <.flash_group flash={@flash} />
-    <%= @inner_content %>
-  </div>
-</main>
+  <main class="flex-auto py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-ato">
+      <.flash_group flash={@flash} />
+      <%= @inner_content %>
+    </div>
+  </main>
+
+  <footer class="py-28 mt-16 text-sm text-center bg-neutral-950">
+    <h2 id="footer-heading" class="sr-only">Footer</h2>
+    <p>STREET FIGHTER™ 6 and the STREET FIGHTER™ 6 logo are trademarks of CAPCOM CO., LTD.</p>
+    <p>TEKKEN™ 8 and the TEKKEN™ 8 logo are trademarks of BANDAI NAMCO ENTERTAINMENT INC.</p>
+  </footer>
+</div>

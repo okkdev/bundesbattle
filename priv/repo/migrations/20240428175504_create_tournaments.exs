@@ -7,6 +7,7 @@ defmodule Bundesbattle.Repo.Migrations.CreateTournaments do
       add :name, :string, null: false
       add :bracket_link, :string
       add :datetime, :naive_datetime, null: false
+      add :description, :string
       add :game, :string, null: false
       add :bundesbattle_season, :integer, null: false
       add :location_id, references(:locations, on_delete: :nothing, type: :binary_id)

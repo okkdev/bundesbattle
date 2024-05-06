@@ -8,7 +8,7 @@ defmodule Bundesbattle.Repo.Migrations.CreateLocations do
       add :address, :string
       add :zip, :integer
       add :city, :string
-      add :location_url, :string
+      add :url, :string
       add :latitude, :float
       add :longitude, :float
       add :region_id, references(:regions, on_delete: :nothing, type: :binary_id)

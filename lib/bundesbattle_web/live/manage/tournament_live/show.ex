@@ -3,6 +3,7 @@ defmodule BundesbattleWeb.Manage.TournamentLive.Show do
 
   alias Bundesbattle.Events
   alias Bundesbattle.Accounts
+  alias Bundesbattle.Regions
 
   @impl true
   def mount(_params, _session, socket) do
@@ -20,6 +21,7 @@ defmodule BundesbattleWeb.Manage.TournamentLive.Show do
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:tournament, Events.get_tournament!(id))
+     |> assign(:locations, Regions.list_locations())
      |> stream(:players, Events.list_tournament_players_for_tournament(id))}
   end
 

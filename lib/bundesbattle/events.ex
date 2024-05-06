@@ -120,7 +120,7 @@ defmodule Bundesbattle.Events do
 
   def get_tournament_player!(id) do
     Repo.get!(TournamentPlayer, id)
-    |> Repo.preload(:player)
+    |> Repo.preload(:user)
   end
 
   def change_tournament_player(%TournamentPlayer{} = tournament_player, attrs \\ %{}) do
@@ -138,11 +138,11 @@ defmodule Bundesbattle.Events do
   end
 
   def preload_tournament_player(%TournamentPlayer{} = tournament_player) do
-    Repo.preload(tournament_player, :player)
+    Repo.preload(tournament_player, :user)
   end
 
   def list_tournament_players_for_tournament(tournament_id) do
     Repo.all(TournamentPlayer, tournament_id: tournament_id)
-    |> Repo.preload(:player)
+    |> Repo.preload(:user)
   end
 end

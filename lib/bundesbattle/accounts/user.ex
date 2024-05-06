@@ -31,6 +31,7 @@ defmodule Bundesbattle.Accounts.User do
     :zh
   ]
 
+  # TODO: Add socials
   @primary_key {:id, Uniq.UUID, version: 7, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do

@@ -40,6 +40,33 @@ Hooks.Flash = {
   },
 }
 
+// Leaflet Open Street Map
+Hooks.Map = {
+  mounted() {
+    const coordinates = [this.el.dataset.lat, this.el.dataset.lng]
+    const popup = this.el.innerHTML
+    this.el.innerHTML = ""
+
+    const map = L.map(this.el, {
+      attributionControl: false,
+      center: coordinates,
+      zoom: 16,
+    })
+    L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+      {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        maxZoom: 20,
+      },
+    ).addTo(map)
+    L.control.attribution({ prefix: false }).addTo(map)
+
+    const marker = L.marker(coordinates).addTo(map)
+    marker.bindPopup(popup).openPopup()
+  },
+}
+
 const csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content")
@@ -62,26 +89,3 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
-
-// Leaflet Open Street Map
-const mapEl = document.getElementById("map")
-if (mapEl) {
-  const coordinates = [mapEl.dataset.lat, mapEl.dataset.lng]
-  const popup = mapEl.innerHTML
-  mapEl.innerHTML = ""
-
-  const map = L.map(mapEl, {
-    attributionControl: false,
-    center: coordinates,
-    zoom: 16,
-  })
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    maxZoom: 20,
-  }).addTo(map)
-  L.control.attribution({ prefix: false }).addTo(map)
-
-  const marker = L.marker(coordinates).addTo(map)
-  marker.bindPopup(popup).openPopup()
-}

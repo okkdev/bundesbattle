@@ -7,7 +7,7 @@ defmodule Bundesbattle.Events.TournamentPlayer do
   schema "tournament_players" do
     field :placement, :integer
     belongs_to :tournament, Bundesbattle.Events.Tournament
-    belongs_to :player, Bundesbattle.Accounts.User
+    belongs_to :user, Bundesbattle.Accounts.User
 
     timestamps(type: :utc_datetime)
   end
@@ -15,7 +15,7 @@ defmodule Bundesbattle.Events.TournamentPlayer do
   @doc false
   def changeset(tournament_player, attrs) do
     tournament_player
-    |> cast(attrs, [:placement, :tournament_id, :player_id])
-    |> validate_required([:placement, :tournament_id, :player_id])
+    |> cast(attrs, [:placement, :tournament_id, :user_id])
+    |> validate_required([:placement, :tournament_id, :user_id])
   end
 end

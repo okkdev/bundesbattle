@@ -4,9 +4,9 @@ defmodule BundesbattleWeb.Manage.LocationLiveTest do
   import Phoenix.LiveViewTest
   import Bundesbattle.RegionsFixtures
 
-  @create_attrs %{name: "some name", zip: 42, address: "some address", region: "some region", city: "some city", location_url: "some location_url", latitude: 120.5, longitude: 120.5}
-  @update_attrs %{name: "some updated name", zip: 43, address: "some updated address", region: "some updated region", city: "some updated city", location_url: "some updated location_url", latitude: 456.7, longitude: 456.7}
-  @invalid_attrs %{name: nil, zip: nil, address: nil, region: nil, city: nil, location_url: nil, latitude: nil, longitude: nil}
+  @create_attrs %{name: "some name", zip: 42, address: "some address", region: "some region", city: "some city", url: "some url", latitude: 120.5, longitude: 120.5}
+  @update_attrs %{name: "some updated name", zip: 43, address: "some updated address", region: "some updated region", city: "some updated city", url: "some updated url", latitude: 456.7, longitude: 456.7}
+  @invalid_attrs %{name: nil, zip: nil, address: nil, region: nil, city: nil, url: nil, latitude: nil, longitude: nil}
 
   defp create_location(_) do
     location = location_fixture()

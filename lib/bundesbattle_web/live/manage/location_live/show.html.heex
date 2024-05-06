@@ -14,20 +14,26 @@
   <:item title="Address"><%= @location.address %></:item>
   <:item title="Zip"><%= @location.zip %></:item>
   <:item title="City"><%= @location.city %></:item>
-  <:item title="Location url"><%= @location.location_url %></:item>
+  <:item title="Location url"><%= @location.url %></:item>
   <:item title="Latitude"><%= @location.latitude %></:item>
   <:item title="Longitude"><%= @location.longitude %></:item>
 </.list>
 
 <.back navigate={~p"/manage/locations"}>Back to locations</.back>
 
-<.modal :if={@live_action == :edit} id="location-modal" show on_cancel={JS.patch(~p"/manage/locations/#{@location}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="location-modal"
+  show
+  on_cancel={JS.patch(~p"/manage/locations/#{@location}")}
+>
   <.live_component
     module={BundesbattleWeb.Manage.LocationLive.FormComponent}
     id={@location.id}
     title={@page_title}
     action={@live_action}
     location={@location}
+    regions={@regions}
     patch={~p"/manage/locations/#{@location}"}
   />
 </.modal>

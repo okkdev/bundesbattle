@@ -278,24 +278,22 @@
     </div>
 
     <div class="mx-auto mt-20 max-w-2xl sm:mt-24 lg:mt-32 lg:max-w-none">
-      <dl class="grid grid-cols-1 gap-8 max-w-xl lg:grid-cols-3 lg:max-w-none">
-        <a href="/region/zurich" class="flex flex-col p-5 rounded-xl hover:bg-gray-900/30">
+      <dl class="grid grid-cols-1 gap-y-8 gap-x-16 max-w-xl lg:grid-cols-3 lg:max-w-none">
+        <a
+          href="/region/zurich"
+          class="flex flex-col p-5 rounded-xl bg-gray-900/30 hover:bg-gray-900/40"
+        >
           <dt class="relative mb-3 text-2xl leading-7 text-gray-950 font-stencil">
             <span class="relative z-20">Zürich</span>
             <img src="/images/splash.svg" class="absolute -top-4 -left-8 h-14 -rotate-6" />
           </dt>
-          <dd class="flex flex-col flex-auto mt-4 text-base leading-7 text-gray-300">
+          <dd class="flex flex-col flex-auto items-start mt-4 text-base leading-7 text-gray-300">
             <%= if @upcoming_tournament_zurich do %>
               <div class="flex-auto">
                 <p class="mb-3 text-sm font-bold">
                   Next Tournament:
                 </p>
-                <%= case @upcoming_tournament_zurich.game do %>
-                  <% :streetfighter -> %>
-                    <img src="/images/sf6-logo.svg" alt="Street Fighter 6" class="w-32" />
-                  <% :tekken -> %>
-                    <img src="/images/tekken8-light-logo.svg" alt="Tekken 8" class="w-32" />
-                <% end %>
+                <.game_logo game={@upcoming_tournament_zurich.game} class="h-8" />
                 <p class="text-lg font-bold">
                   <%= @upcoming_tournament_zurich.name %>
                 </p>
@@ -314,23 +312,21 @@
           </dd>
         </a>
 
-        <a href="/region/basel" class="flex flex-col p-5 rounded-xl hover:bg-gray-900/30">
+        <a
+          href="/region/basel"
+          class="flex flex-col p-5 rounded-xl bg-gray-900/30 hover:bg-gray-900/40"
+        >
           <dt class="relative mb-3 text-2xl leading-7 text-gray-950 font-stencil">
             <span class="relative z-20">Basel</span>
             <img src="/images/splash.svg" class="absolute -top-3 -left-8 h-12 -rotate-6" />
           </dt>
-          <dd class="flex flex-col flex-auto mt-4 text-base leading-7 text-gray-300">
+          <dd class="flex flex-col flex-auto items-start mt-4 text-base leading-7 text-gray-300">
             <%= if @upcoming_tournament_basel do %>
               <div class="flex-auto">
                 <p class="mb-3 text-sm font-bold">
                   Next Tournament:
                 </p>
-                <%= case @upcoming_tournament_basel.game do %>
-                  <% :streetfighter -> %>
-                    <img src="/images/sf6-logo.svg" alt="Street Fighter 6" class="w-32" />
-                  <% :tekken -> %>
-                    <img src="/images/tekken8-light-logo.svg" alt="Tekken 8" class="w-32" />
-                <% end %>
+                <.game_logo game={@upcoming_tournament_basel.game} class="h-8" />
                 <p class="text-lg font-bold">
                   <%= @upcoming_tournament_basel.name %>
                 </p>
@@ -349,23 +345,21 @@
           </dd>
         </a>
 
-        <a href="/region/lausanne" class="flex flex-col p-5 rounded-xl hover:bg-gray-900/30">
+        <a
+          href="/region/lausanne"
+          class="flex flex-col p-5 rounded-xl bg-gray-900/30 hover:bg-gray-900/40"
+        >
           <dt class="relative mb-3 text-2xl leading-7 text-gray-950 font-stencil">
             <span class="relative z-20">Lausanne</span>
             <img src="/images/splash.svg" class="absolute -top-4 -left-5 h-14 -rotate-3" />
           </dt>
-          <dd class="flex flex-col flex-auto mt-4 text-base leading-7 text-gray-300">
+          <dd class="flex flex-col flex-auto items-start mt-4 text-base leading-7 text-gray-300">
             <%= if @upcoming_tournament_lausanne do %>
               <div class="flex-auto">
                 <p class="mb-3 text-sm font-bold">
                   Next Tournament:
                 </p>
-                <%= case @upcoming_tournament_lausanne.game do %>
-                  <% :streetfighter -> %>
-                    <img src="/images/sf6-logo.svg" alt="Street Fighter 6" class="w-32" />
-                  <% :tekken -> %>
-                    <img src="/images/tekken8-light-logo.svg" alt="Tekken 8" class="w-32" />
-                <% end %>
+                <.game_logo game={@upcoming_tournament_lausanne.game} class="h-8" />
                 <p class="text-lg font-bold">
                   <%= @upcoming_tournament_lausanne.name %>
                 </p>

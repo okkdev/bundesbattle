@@ -9,7 +9,7 @@ defmodule Bundesbattle.Regions.Location do
     field :address, :string
     field :zip, :integer
     field :city, :string
-    field :location_url, :string
+    field :url, :string
     field :latitude, :float
     field :longitude, :float
     belongs_to :region, Bundesbattle.Regions.Region
@@ -27,11 +27,11 @@ defmodule Bundesbattle.Regions.Location do
       :address,
       :zip,
       :city,
-      :location_url,
+      :url,
       :latitude,
       :longitude
     ])
     |> validate_required([:region_id, :name])
-    |> Bundesbattle.Utils.validate_url(:location_url)
+    |> Bundesbattle.Utils.validate_url(:url)
   end
 end

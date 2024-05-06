@@ -23,8 +23,9 @@ defmodule BundesbattleWeb.Router do
     get "/", PageController, :home
     # get "/impressum", ImpressumController, :index
 
-    live_session :default do
+    live_session :default, on_mount: [{BundesbattleWeb.UserAuth, :mount_current_user}] do
       live "/region/:region", RegionLive
+      live "/tournament/:tournament_id", TournamentLive
     end
   end
 

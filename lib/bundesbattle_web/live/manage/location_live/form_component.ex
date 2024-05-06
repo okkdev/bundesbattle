@@ -31,7 +31,7 @@ defmodule BundesbattleWeb.Manage.LocationLive.FormComponent do
         <.input field={@form[:address]} type="text" label="Address" />
         <.input field={@form[:zip]} type="number" label="Zip" />
         <.input field={@form[:city]} type="text" label="City" />
-        <.input field={@form[:location_url]} type="text" label="Location url" />
+        <.input field={@form[:url]} type="text" label="Location url" />
         <.input field={@form[:latitude]} type="number" label="Latitude" step="any" />
         <.input field={@form[:longitude]} type="number" label="Longitude" step="any" />
         <:actions>

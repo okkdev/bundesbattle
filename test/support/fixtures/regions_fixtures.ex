@@ -14,7 +14,7 @@ defmodule Bundesbattle.RegionsFixtures do
         address: "some address",
         city: "some city",
         latitude: 120.5,
-        location_url: "some location_url",
+        url: "some url",
         longitude: 120.5,
         name: "some name",
         region: "some region",

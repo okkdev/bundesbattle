@@ -2,6 +2,7 @@ defmodule Bundesbattle.Events.Tournament do
   use Ecto.Schema
   import Ecto.Changeset
 
+  # TODO: Add organizer
   @primary_key {:id, Uniq.UUID, version: 7, autogenerate: true}
   @foreign_key_type Uniq.UUID
   schema "tournaments" do
@@ -9,6 +10,7 @@ defmodule Bundesbattle.Events.Tournament do
     field :bracket_link, :string
     field :datetime, :naive_datetime
     field :bundesbattle_season, :integer, default: 2
+    field :description, :string
     field :game, Ecto.Enum, values: [:tekken, :streetfighter]
     belongs_to :location, Bundesbattle.Regions.Location
     has_many :players, Bundesbattle.Events.TournamentPlayer
@@ -19,7 +21,15 @@ defmodule Bundesbattle.Events.Tournament do
   @doc false
   def changeset(tournament, attrs) do
     tournament
-    |> cast(attrs, [:name, :bracket_link, :datetime, :game, :bundesbattle_season, :location_id])
+    |> cast(attrs, [
+      :name,
+      :bracket_link,
+      :datetime,
+      :description,
+      :game,
+      :bundesbattle_season,
+      :location_id
+    ])
     |> validate_required([:name, :datetime, :game, :bundesbattle_season, :location_id])
     |> Bundesbattle.Utils.validate_url(:bracket_link)
   end

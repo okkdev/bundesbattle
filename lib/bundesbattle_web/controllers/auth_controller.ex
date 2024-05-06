@@ -21,6 +21,7 @@ defmodule BundesbattleWeb.AuthController do
     case Accounts.fetch_or_create_user(user_params, random_password: true) do
       {:ok, user} ->
         UserAuth.log_in_user(conn, user, %{"remember_me" => "true"})
+        |> put_flash(:info, "Logged in")
 
       {:error, reason} ->
         conn

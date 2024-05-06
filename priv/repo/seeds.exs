@@ -47,7 +47,7 @@ Bundesbattle.Regions.create_region(%{
     address: "Güterstrasse 99",
     zip: 4053,
     city: "Basel",
-    location_url: "https://manabar.ch/",
+    url: "https://manabar.ch/",
     latitude: 47.5461561,
     longitude: 7.5861434,
     region_id: basel.id

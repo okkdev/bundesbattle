@@ -20,20 +20,21 @@ defmodule BundesbattleWeb.Manage.TournamentLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:datetime]} type="datetime-local" label="Datetime" />
+        <.input field={@form[:name]} type="text" label="Name*" />
+        <.input field={@form[:datetime]} type="datetime-local" label="Datetime*" />
         <.input field={@form[:bracket_link]} type="text" label="Bracket Link" />
+        <.input field={@form[:description]} type="textarea" label="Description" />
         <.input
           field={@form[:game]}
           type="select"
-          label="Game"
+          label="Game*"
           prompt="Choose a value"
           options={Ecto.Enum.values(Bundesbattle.Events.Tournament, :game)}
         />
         <.input
           field={@form[:location_id]}
           type="select"
-          label="Location"
+          label="Location*"
           prompt="Choose a value"
           options={@locations |> Enum.map(&{&1.name, &1.id})}
         />

@@ -27,3 +27,7 @@
 .leaflet-bottom {
   z-index: 2;
 }
+
+.leaflet-marker-pane {
+  filter: hue-rotate(200deg) brightness(130%);
+}
