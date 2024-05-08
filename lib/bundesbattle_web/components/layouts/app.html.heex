@@ -10,6 +10,7 @@
       </div>
       <div class="flex lg:hidden">
         <button
+          phx-click={JS.toggle(to: "#mobile-menu")}
           type="button"
           class="inline-flex justify-center items-center p-2.5 -m-2.5 text-gray-400 rounded-md"
         >
@@ -82,21 +83,17 @@
         </ul>
       </div>
     </nav>
-    <!-- Mobile menu, show/hide based on menu open state. -->
-    <div class="lg:hidden" role="dialog" aria-modal="true">
-      <!-- Background backdrop, show/hide based on slide-over state. -->
-      <div class="fixed inset-0 z-50"></div>
-      <div class="overflow-y-auto fixed inset-y-0 right-0 z-50 py-6 px-6 w-full bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-        <div class="flex justify-between items-center">
-          <a href="#" class="p-1.5 -m-1.5">
-            <span class="sr-only">Your Company</span>
-            <img
-              class="w-auto h-8"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
-          </a>
-          <button type="button" class="p-2.5 -m-2.5 text-gray-700 rounded-md">
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden" role="dialog" aria-modal="true">
+      <div phx-click={JS.toggle(to: "#mobile-menu")} class="fixed inset-0 z-50 bg-gray-900/50">
+      </div>
+      <div class="overflow-y-auto fixed inset-y-0 right-0 z-50 py-6 px-6 w-full bg-gray-900 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <div class="flex justify-end items-center">
+          <button
+            phx-click={JS.toggle(to: "#mobile-menu")}
+            type="button"
+            class="p-2.5 -m-2.5 text-gray-700 rounded-md"
+          >
             <span class="sr-only">Close menu</span>
             <svg
               class="w-6 h-6"
@@ -113,38 +110,32 @@
         <div class="flow-root mt-6">
           <div class="-my-6 divide-y divide-gray-500/10">
             <div class="py-6 space-y-2">
-              <a
-                href="#"
-                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+              <.link
+                navigate={~p"/region/zurich"}
+                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
               >
-                Product
-              </a>
-              <a
-                href="#"
-                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+                Zürich
+              </.link>
+              <.link
+                navigate={~p"/region/basel"}
+                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
               >
-                Features
-              </a>
-              <a
-                href="#"
-                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+                Basel
+              </.link>
+              <.link
+                navigate={~p"/region/lausanne"}
+                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
               >
-                Marketplace
-              </a>
-              <a
-                href="#"
-                class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
-              >
-                Company
-              </a>
+                Lausanne
+              </.link>
             </div>
             <div class="py-6">
-              <a
-                href="#"
-                class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+              <.link
+                navigate={~p"/login"}
+                class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
               >
                 Log in
-              </a>
+              </.link>
             </div>
           </div>
         </div>
@@ -153,7 +144,7 @@
   </header>
 
   <main class="flex-auto py-20 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-ato">
+    <div class="mx-auto max-w-7xl">
       <.flash_group flash={@flash} />
       <%= @inner_content %>
     </div>
