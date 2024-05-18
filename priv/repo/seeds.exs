@@ -10,17 +10,18 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-Bundesbattle.Accounts.create_user(
-  %{
-    display_name: nil,
-    username: "okk",
-    canton: nil,
-    discord_id: "116146991540600840",
-    email: "dev@stehlik.me",
-    role: :admin
-  },
-  random_password: true
-)
+{:ok, okk} =
+  Bundesbattle.Accounts.create_user(
+    %{
+      display_name: nil,
+      username: "okk",
+      canton: nil,
+      discord_id: "116146991540600840",
+      email: "dev@stehlik.me",
+      role: :admin
+    },
+    random_password: true
+  )
 
 {:ok, basel} =
   Bundesbattle.Regions.create_region(%{
@@ -53,20 +54,34 @@ Bundesbattle.Regions.create_region(%{
     region_id: basel.id
   })
 
-Bundesbattle.Events.create_tournament(%{
-  name: "Monthly Mash #Test",
-  bracket_link: "https://fgcbasel.ch/",
-  datetime: ~N[2024-05-12 00:01:00],
-  bundesbattle_season: 2,
-  game: :streetfighter,
-  location_id: manabar.id
+{:ok, t1} =
+  Bundesbattle.Events.create_tournament(%{
+    name: "Monthly Mash #Test",
+    bracket_link: "https://fgcbasel.ch/",
+    datetime: ~N[2024-07-12 00:01:00],
+    bundesbattle_season: 2,
+    game: :streetfighter,
+    location_id: manabar.id
+  })
+
+{:ok, t2} =
+  Bundesbattle.Events.create_tournament(%{
+    name: "Monthly Mash #Test2",
+    bracket_link: "https://fgcbasel.ch/",
+    datetime: ~N[2024-09-13 00:02:00],
+    bundesbattle_season: 2,
+    game: :tekken,
+    location_id: manabar.id
+  })
+
+Bundesbattle.Events.create_tournament_player(%{
+  place: 2,
+  user_id: okk.id,
+  tournament_id: t1.id
 })
 
-Bundesbattle.Events.create_tournament(%{
-  name: "Monthly Mash #Test2",
-  bracket_link: "https://fgcbasel.ch/",
-  datetime: ~N[2024-05-13 00:02:00],
-  bundesbattle_season: 2,
-  game: :tekken,
-  location_id: manabar.id
+Bundesbattle.Events.create_tournament_player(%{
+  place: 3,
+  user_id: okk.id,
+  tournament_id: t2.id
 })

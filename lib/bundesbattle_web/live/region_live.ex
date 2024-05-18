@@ -2,6 +2,7 @@ defmodule BundesbattleWeb.RegionLive do
   use BundesbattleWeb, :live_view
 
   alias Bundesbattle.Regions
+  alias Bundesbattle.Leaderboard
 
   @impl true
   def render(assigns) do
@@ -17,18 +18,9 @@ defmodule BundesbattleWeb.RegionLive do
     </div>
 
     <h2 class="font-stencil text-3xl mb-5">Tournaments</h2>
-    <%= if not Enum.empty?(@tournaments) do %>
+    <%= if not Enum.empty?(@upcoming_tournaments) do %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <.link
-          :for={tournament <- @tournaments}
-          navigate={"/tournament/#{tournament.id}"}
-          class="rounded-lg border border-white/50 py-5 px-6 flex flex-col items-start hover:bg-white/10"
-        >
-          <h2 class="text-xl font-bold"><%= tournament.name %></h2>
-          <div class="text-lg"><%= Calendar.strftime(tournament.datetime, "%d.%m.%Y %H:%M") %></div>
-          <div class="text-lg flex-auto font-semibold">@<%= tournament.location.name %></div>
-          <.game_logo game={tournament.game} class="h-5 mt-5" />
-        </.link>
+        <.tournament_card :for={tournament <- @upcoming_tournaments} tournament={tournament} />
       </div>
     <% else %>
       <div class="">
@@ -36,38 +28,18 @@ defmodule BundesbattleWeb.RegionLive do
       </div>
     <% end %>
 
+    <%= if not Enum.empty?(@past_tournaments) do %>
+      <h3 class="font-stencil text-2xl my-5">Past Tournaments</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 opacity-50">
+        <.tournament_card :for={tournament <- @past_tournaments} tournament={tournament} />
+      </div>
+    <% end %>
+
     <h2 class="font-stencil text-3xl mb-5 mt-12">Leaderboard</h2>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="p-3 rounded-lg border border-white/20 flex flex-col">
-        <.game_logo game={:streetfighter} class="h-8 mb-4" />
+      <.leaderboard game={:streetfighter} placements={@leaderboard[:streetfighter]} />
 
-        <table class="min-w-full divide-y divide-white/70 flex-auto">
-          <thead>
-            <tr>
-              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-0">
-                Place
-              </th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold">
-                Player
-              </th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold">
-                Points
-              </th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-800">
-            <tr>
-              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-0">1st</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm">coolermann</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm">points</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="px-3">
-        <.game_logo game={:tekken} class="h-8" />
-      </div>
+      <.leaderboard game={:tekken} placements={@leaderboard[:tekken]} />
     </div>
     """
   end
@@ -86,6 +58,23 @@ defmodule BundesbattleWeb.RegionLive do
       region.locations
       |> Enum.flat_map(& &1.tournaments)
 
-    {:noreply, assign(socket, region: region, tournaments: tournaments)}
+    upcoming_tournaments =
+      tournaments
+      |> Enum.filter(&(NaiveDateTime.compare(&1.datetime, NaiveDateTime.utc_now()) != :lt))
+
+    past_tournaments = tournaments -- upcoming_tournaments
+
+    leaderboard = [
+      streetfighter: Leaderboard.create(tournaments, :streetfighter),
+      tekken: Leaderboard.create(tournaments, :tekken)
+    ]
+
+    {:noreply,
+     assign(socket,
+       region: region,
+       upcoming_tournaments: upcoming_tournaments,
+       past_tournaments: past_tournaments,
+       leaderboard: leaderboard
+     )}
   end
 end

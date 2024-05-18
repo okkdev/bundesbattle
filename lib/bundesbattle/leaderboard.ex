@@ -1,7 +1,7 @@
 defmodule Bundesbattle.Leaderboard do
   alias Bundesbattle.Events.TournamentPlayer
 
-  def create_leaderboard(tournaments, game) do
+  def create(tournaments, game) do
     tournaments
     |> Enum.filter(&(&1.game == game))
     |> Enum.flat_map(fn tournament ->
@@ -15,7 +15,7 @@ defmodule Bundesbattle.Leaderboard do
           Map.put(acc, player.id, %{player: player, points: points + p.points})
 
         nil ->
-          Map.put(acc, p.player.user.id, %{player: p.player.user, points: p.player.points})
+          Map.put(acc, p.player.user.id, %{player: p.player.user, points: p.points})
       end
     end)
     |> Enum.map(fn {_, p} -> p end)

@@ -22,14 +22,12 @@
   <.input field={@player_form[:placement]} type="number" label="Placement" />
   <.input
     field={@player_form[:user_id]}
-    type="text"
+    type="select"
     label="Player"
-    list="players"
-    autocomplete="off"
+    prompt="Choose a value"
+    options={@users |> Enum.map(&{&1.username, &1.id})}
   />
-  <datalist id="players" class="max-h-48 border-0">
-    <option :for={player <- @users} value={player.id}><%= player.username %></option>
-  </datalist>
+
   <:actions>
     <.button phx-disable-with="Adding...">Add</.button>
   </:actions>

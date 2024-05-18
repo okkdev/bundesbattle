@@ -46,7 +46,7 @@
         <ul class="flex relative z-10 gap-4 justify-end items-center px-4 sm:px-6 lg:px-8">
           <%= if @current_user do %>
             <li class="leading-6 text-[0.8125rem]">
-              <%= @current_user.email %>
+              <%= @current_user.username %>
             </li>
             <li>
               <.link
@@ -54,6 +54,14 @@
                 class="font-semibold leading-6 text-[0.8125rem]"
               >
                 Settings
+              </.link>
+            </li>
+            <li :if={@current_user.role in [:admin, :organizer]}>
+              <.link
+                navigate={~p"/manage"}
+                class="font-semibold leading-6 text-[0.8125rem]"
+              >
+                Manage
               </.link>
             </li>
             <li>
