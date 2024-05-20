@@ -79,7 +79,8 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 WORKDIR "/app"
-RUN adduser -u 1001 -g 1001 default 
+RUN addgroup --gid 1001 default
+RUN adduser --uid 1001 --gid 1001 default 
 RUN chown default /app
 
 # set runner ENV
