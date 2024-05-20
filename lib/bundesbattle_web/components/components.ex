@@ -1,4 +1,5 @@
 defmodule BundesbattleWeb.Components do
+  alias Bundesbattle.Accounts.User
   use Phoenix.Component
 
   attr :game, :atom,
@@ -37,18 +38,14 @@ defmodule BundesbattleWeb.Components do
     """
   end
 
-  attr :game, :atom,
-    required: true,
-    values: Ecto.Enum.values(Bundesbattle.Events.Tournament, :game)
-
+  attr :game, :atom, values: Ecto.Enum.values(Bundesbattle.Events.Tournament, :game)
   attr :placements, :list, required: true
-
   attr :class, :string, default: nil
 
   def leaderboard(assigns) do
     ~H"""
     <div class={["p-3 rounded-lg border border-white/20 flex flex-col", @class]}>
-      <.game_logo game={:streetfighter} class="h-8 mb-4" />
+      <.game_logo :if={assigns[:game]} game={@game} class="h-8 mb-4" />
 
       <%= if not Enum.empty?(@placements) do %>
         <table class="min-w-full divide-y divide-white/70 flex-auto">
@@ -68,10 +65,30 @@ defmodule BundesbattleWeb.Components do
           <tbody class="divide-y divide-gray-800">
             <tr :for={player <- @placements}>
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-0">
-                <%= player.place %>
+                <div class="font-stencil text-xl">
+                  <%= player.place %>
+                </div>
               </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm"><%= player.player.username %></td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm"><%= player.points %></td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm">
+                <div class="flex items-center gap-x-4">
+                  <%= if player.player.canton do %>
+                    <img
+                      src={"/images/wappen/#{player.player.canton}.svg"}
+                      alt={player.player.canton |> Atom.to_string() |> String.upcase()}
+                      class="h-6 w-6"
+                    />
+                  <% else %>
+                    <div class="h-6 w-6"></div>
+                  <% end %>
+
+                  <div class="text-lg font-medium"><%= display_or_username(player.player) %></div>
+                </div>
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm">
+                <div class="font-stencil text-lg">
+                  <%= player.points %>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -98,5 +115,12 @@ defmodule BundesbattleWeb.Components do
       <.game_logo game={@tournament.game} class="h-5 mt-5" />
     </.link>
     """
+  end
+
+  def display_or_username(%User{} = user) do
+    case user.display_name do
+      nil -> user.username
+      dn -> dn
+    end
   end
 end

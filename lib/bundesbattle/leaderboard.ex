@@ -23,7 +23,7 @@ defmodule Bundesbattle.Leaderboard do
     |> Enum.with_index(fn p, index -> %{place: index + 1, player: p.player, points: p.points} end)
   end
 
-  defp assign_points(%TournamentPlayer{} = player) do
+  def assign_points(%TournamentPlayer{} = player) do
     case player.placement do
       1 -> 8
       2 -> 6

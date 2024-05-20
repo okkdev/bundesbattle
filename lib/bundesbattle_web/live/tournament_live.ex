@@ -2,18 +2,29 @@ defmodule BundesbattleWeb.TournamentLive do
   use BundesbattleWeb, :live_view
 
   alias Bundesbattle.Events
+  alias Bundesbattle.Leaderboard
 
   @impl true
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-3xl">
-      <h1 class="text-4xl font-stencil"><%= @tournament.name %></h1>
+      <div class="flex justify-between">
+        <h1 class="text-4xl font-stencil"><%= @tournament.name %></h1>
+        <.link
+          :if={@current_user.role in [:organizer, :admin]}
+          navigate={~p"/manage/tournaments/#{@tournament.id}"}
+        >
+          <.button>
+            Manage
+          </.button>
+        </.link>
+      </div>
       <h3 class="text-2xl font-stencil">
         <%= Calendar.strftime(@tournament.datetime, "%d.%m.%Y %H:%M") %>
       </h3>
       <.game_logo game={@tournament.game} class="h-8" />
 
-      <div class="my-8 font-semibold text-lg">
+      <div :if={@tournament.bracket_link} class="my-8 font-semibold text-lg">
         Bracket:
         <.link href={@tournament.bracket_link} class="text-brand">
           <%= @tournament.bracket_link %>
@@ -23,6 +34,48 @@ defmodule BundesbattleWeb.TournamentLive do
       <p :if={@tournament.description} class="text-md">
         <%= @tournament.description %>
       </p>
+
+      <%= if not Enum.empty?(@tournament.players) do %>
+        <table class="min-w-full divide-y divide-white/70 flex-auto">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-0">
+                Place
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold">
+                Player
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold">
+                Points
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-800">
+            <tr :for={player <- @tournament.players}>
+              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-0">
+                <%= player.placement %>
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm">
+                <div class="flex items-center gap-x-4">
+                  <%= if player.user.canton do %>
+                    <img
+                      src={"/images/wappen/#{player.user.canton}.svg"}
+                      alt={player.user.canton |> Atom.to_string() |> String.upcase()}
+                      class="h-6 w-6"
+                    />
+                  <% else %>
+                    <div class="h-6 w-6"></div>
+                  <% end %>
+                  <%= display_or_username(player.user) %>
+                </div>
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm">
+                <%= Leaderboard.assign_points(player) %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
     </div>
 
     <%= if (not is_nil(@tournament.location.latitude)) and (not is_nil(@tournament.location.longitude)) do %>
