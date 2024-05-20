@@ -43,6 +43,8 @@ job "bundesbattle" {
         SECRET_KEY_BASE = "EnAKKOeidZIhIhPnWrr2V/HfuT4JAtw3M9utLNUc59R52zjZaYVTpsrz2zAsnCT7"
         PHX_HOST = "bundesbattle.ch"
         DATABASE_PATH = "/db/bundesbattle.db"
+        DISCORD_CLIENT_ID = ""
+        DISCORD_CLIENT_SECRET = ""
       }
 
       volume_mount {

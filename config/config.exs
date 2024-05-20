@@ -58,10 +58,6 @@ config :ueberauth, Ueberauth,
     discord: {Ueberauth.Strategy.Discord, [default_scope: "identify email"]}
   ]
 
-config :ueberauth, Ueberauth.Strategy.Discord.OAuth,
-  client_id: System.get_env("DISCORD_CLIENT_ID"),
-  client_secret: System.get_env("DISCORD_CLIENT_SECRET")
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

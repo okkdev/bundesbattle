@@ -20,6 +20,11 @@ if System.get_env("PHX_SERVER") do
   config :bundesbattle, BundesbattleWeb.Endpoint, server: true
 end
 
+config :ueberauth, Ueberauth.Strategy.Discord.OAuth,
+  client_id: System.get_env("DISCORD_CLIENT_ID") || raise("DISCORD_CLIENT_ID env is missing"),
+  client_secret:
+    System.get_env("DISCORD_CLIENT_SECRET") || raise("DISCORD_CLIENT_SECRET env is missing")
+
 if config_env() == :prod do
   database_path =
     System.get_env("DATABASE_PATH") ||
