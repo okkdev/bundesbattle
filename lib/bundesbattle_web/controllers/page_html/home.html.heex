@@ -24,7 +24,7 @@
           :if={not Enum.empty?(@upcoming_tournaments)}
           class="hidden sm:flex sm:justify-center sm:mb-8"
         >
-          <a href={~p"/tournament/" <> Enum.at(@upcoming_tournaments, 0).id} class="relative">
+          <a href={~p"/tournament/#{Enum.at(@upcoming_tournaments, 0).id}"} class="relative">
             <%!-- <div class="absolute py-1 px-3 text-sm leading-6 text-gray-400 rounded-full ring-1 animate-ping ring-white/10 hover:ring-white/20"> --%>
             <%!--   Upcoming Tournament <span aria-hidden="true" class="text-white">&rarr;</span> --%>
             <%!-- </div> --%>
