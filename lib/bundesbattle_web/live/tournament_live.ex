@@ -3,6 +3,7 @@ defmodule BundesbattleWeb.TournamentLive do
 
   alias Bundesbattle.Events
   alias Bundesbattle.Leaderboard
+  alias BundesbattleWeb.SEO
 
   @impl true
   def render(assigns) do
@@ -11,7 +12,7 @@ defmodule BundesbattleWeb.TournamentLive do
       <div class="flex justify-between">
         <h1 class="text-4xl font-stencil"><%= @tournament.name %></h1>
         <.link
-          :if={@current_user.role in [:organizer, :admin]}
+          :if={@current_user[:role] in [:organizer, :admin]}
           navigate={~p"/manage/tournaments/#{@tournament.id}"}
         >
           <.button>
@@ -23,6 +24,9 @@ defmodule BundesbattleWeb.TournamentLive do
         <%= Calendar.strftime(@tournament.datetime, "%d.%m.%Y %H:%M") %>
       </h3>
       <.game_logo game={@tournament.game} class="h-8" />
+      <.link navigate={~p"/region/#{@tournament.location.region.slug}"} class="font-semibold text-lg">
+        Leaderboard: <%= @tournament.location.region.name %>
+      </.link>
 
       <div :if={@tournament.bracket_link} class="my-8 font-semibold text-lg">
         Bracket:
@@ -109,13 +113,31 @@ defmodule BundesbattleWeb.TournamentLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, socket, temporary_assigns: [seo: nil]}
   end
 
   @impl true
   def handle_params(%{"tournament_id" => tournament_id}, _url, socket) do
     tournament = Events.get_tournament!(tournament_id)
 
-    {:noreply, assign(socket, tournament: tournament)}
+    seo =
+      %{
+        title: "#{tournament.name} - BundesBattle Season 2 Tournament",
+        description: """
+        Join the #{game_to_string(tournament.game)} tournament at #{tournament.location.name} to collect points for the #{tournament.location.region.name} region.
+        """,
+        url: ~p"/tournament/#{tournament.id}"
+      }
+      |> SEO.new()
+      |> SEO.build()
+
+    {:noreply, assign(socket, tournament: tournament, seo: seo)}
+  end
+
+  defp game_to_string(game) do
+    case game do
+      :streetfighter -> "Street Fighter 6"
+      :tekken -> "Tekken 7"
+    end
   end
 end

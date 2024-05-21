@@ -3,6 +3,7 @@ defmodule BundesbattleWeb.RegionLive do
 
   alias Bundesbattle.Regions
   alias Bundesbattle.Leaderboard
+  alias BundesbattleWeb.SEO
 
   @impl true
   def render(assigns) do
@@ -46,7 +47,7 @@ defmodule BundesbattleWeb.RegionLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, socket, temporary_assigns: [seo: nil]}
   end
 
   @impl true
@@ -69,12 +70,22 @@ defmodule BundesbattleWeb.RegionLive do
       tekken: Leaderboard.create(tournaments, :tekken)
     ]
 
+    seo =
+      %{
+        title: "#{region.name} - BundesBattle Season 2 Region",
+        description: "Collect points for this Season of BundesBattle in #{region.name}!",
+        url: ~p"/region/#{region.slug}"
+      }
+      |> SEO.new()
+      |> SEO.build()
+
     {:noreply,
      assign(socket,
        region: region,
        upcoming_tournaments: upcoming_tournaments,
        past_tournaments: past_tournaments,
-       leaderboard: leaderboard
+       leaderboard: leaderboard,
+       seo: seo
      )}
   end
 end

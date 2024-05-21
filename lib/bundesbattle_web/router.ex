@@ -11,6 +11,7 @@ defmodule BundesbattleWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug BundesbattleWeb.Plugs.SEO
   end
 
   pipeline :api do

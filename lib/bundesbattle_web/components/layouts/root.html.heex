@@ -4,9 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title>
-      <%= assigns[:page_title] || "BundesBattle" %>
-    </.live_title>
+    <title><%= assigns[:seo]["title"] %></title>
+    <meta :for={{name, content} <- assigns[:seo]} name={name} property={name} content={content} />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"

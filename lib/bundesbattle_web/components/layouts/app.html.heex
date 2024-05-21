@@ -33,7 +33,7 @@
       </div>
       <div class="hidden lg:flex lg:gap-x-12">
         <.link navigate={~p"/region/zurich"} class="text-sm font-semibold leading-6 text-white">
-          Zürich
+          Zurich
         </.link>
         <.link navigate={~p"/region/basel"} class="text-sm font-semibold leading-6 text-white">
           Basel
@@ -57,10 +57,7 @@
               </.link>
             </li>
             <li :if={@current_user.role in [:admin, :organizer]}>
-              <.link
-                navigate={~p"/manage"}
-                class="font-semibold leading-6 text-[0.8125rem]"
-              >
+              <.link navigate={~p"/manage"} class="font-semibold leading-6 text-[0.8125rem]">
                 Manage
               </.link>
             </li>
@@ -122,7 +119,7 @@
                 navigate={~p"/region/zurich"}
                 class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
               >
-                Zürich
+                Zurich
               </.link>
               <.link
                 navigate={~p"/region/basel"}
@@ -158,9 +155,5 @@
     </div>
   </main>
 
-  <footer class="py-28 mt-16 text-sm text-center bg-neutral-950">
-    <h2 id="footer-heading" class="sr-only">Footer</h2>
-    <p>STREET FIGHTER™ 6 and the STREET FIGHTER™ 6 logo are trademarks of CAPCOM CO., LTD.</p>
-    <p>TEKKEN™ 8 and the TEKKEN™ 8 logo are trademarks of BANDAI NAMCO ENTERTAINMENT INC.</p>
-  </footer>
+  <.footer />
 </div>
