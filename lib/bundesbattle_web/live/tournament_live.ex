@@ -21,7 +21,7 @@ defmodule BundesbattleWeb.TournamentLive do
         </.link>
       </div>
       <h3 class="text-2xl font-stencil">
-        <%= Calendar.strftime(@tournament.datetime, "%d.%m.%Y %H:%M") %>
+        <%= Calendar.strftime(@tournament.datetime, "%a, %d %B %Y %H:%M") %>
       </h3>
       <.game_logo game={@tournament.game} class="h-8" />
       <.link navigate={~p"/region/#{@tournament.location.region.slug}"} class="font-semibold text-lg">

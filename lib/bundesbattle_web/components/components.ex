@@ -137,7 +137,7 @@ defmodule BundesbattleWeb.Components do
       class="rounded-lg border bg-gray-900/50 border-white/50 py-5 px-6 flex flex-col items-start hover:bg-white/10"
     >
       <h2 class="text-xl font-bold"><%= @tournament.name %></h2>
-      <div class="text-lg"><%= Calendar.strftime(@tournament.datetime, "%d.%m.%Y %H:%M") %></div>
+      <div class="text-lg"><%= Calendar.strftime(@tournament.datetime, "%a, %d %B %Y %H:%M") %></div>
       <div class="text-lg flex-auto font-semibold">@<%= @tournament.location.name %></div>
       <.game_logo game={@tournament.game} class="h-5 mt-5" />
     </.link>
