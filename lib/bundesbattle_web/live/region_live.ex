@@ -58,6 +58,7 @@ defmodule BundesbattleWeb.RegionLive do
     tournaments =
       region.locations
       |> Enum.flat_map(& &1.tournaments)
+      |> Enum.sort(&(NaiveDateTime.compare(&1.datetime, &2.datetime) == :lt))
 
     upcoming_tournaments =
       tournaments
