@@ -12,7 +12,7 @@ defmodule BundesbattleWeb.TournamentLive do
       <div class="flex justify-between">
         <h1 class="text-4xl font-stencil"><%= @tournament.name %></h1>
         <.link
-          :if={@current_user and @current_user.role in [:organizer, :admin]}
+          :if={@current_user && @current_user.role in [:organizer, :admin]}
           navigate={~p"/manage/tournaments/#{@tournament.id}"}
         >
           <.button>
