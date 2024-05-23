@@ -75,13 +75,13 @@ Bundesbattle.Regions.create_region(%{
   })
 
 Bundesbattle.Events.create_tournament_player(%{
-  place: 2,
+  placement: 2,
   user_id: okk.id,
   tournament_id: t1.id
 })
 
 Bundesbattle.Events.create_tournament_player(%{
-  place: 3,
+  placement: 3,
   user_id: okk.id,
   tournament_id: t2.id
 })

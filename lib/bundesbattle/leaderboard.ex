@@ -12,13 +12,22 @@ defmodule Bundesbattle.Leaderboard do
     |> Enum.reduce(%{}, fn p, acc ->
       case acc[p.player.user.id] do
         %{player: player, points: points} ->
-          Map.put(acc, player.id, %{player: player, points: points + p.points})
+          Map.put(acc, player.id, %{player: player, points: [p.points | points]})
 
         nil ->
-          Map.put(acc, p.player.user.id, %{player: p.player.user, points: p.points})
+          Map.put(acc, p.player.user.id, %{player: p.player.user, points: [p.points]})
       end
     end)
-    |> Enum.map(fn {_, p} -> p end)
+    |> Enum.map(fn {_, %{player: player, points: points}} ->
+      %{
+        player: player,
+        points:
+          points
+          |> Enum.sort(&(&1 >= &2))
+          |> Enum.take(4)
+          |> Enum.sum()
+      }
+    end)
     |> Enum.sort(fn p1, p2 -> p1.points <= p2.points end)
     |> Enum.with_index(fn p, index -> %{place: index + 1, player: p.player, points: p.points} end)
   end

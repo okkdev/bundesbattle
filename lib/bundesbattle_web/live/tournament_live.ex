@@ -124,6 +124,7 @@ defmodule BundesbattleWeb.TournamentLive do
       %{
         title: "#{tournament.name} - BundesBattle Season 2 Tournament",
         description: """
+        #{Calendar.strftime(tournament.datetime, "%a, %d %B %Y %H:%M")}
         Join the #{game_to_string(tournament.game)} tournament at #{tournament.location.name} to collect points for the #{tournament.location.region.name} region.
         """,
         url: ~p"/tournament/#{tournament.id}"
@@ -137,7 +138,7 @@ defmodule BundesbattleWeb.TournamentLive do
   defp game_to_string(game) do
     case game do
       :streetfighter -> "Street Fighter 6"
-      :tekken -> "Tekken 7"
+      :tekken -> "Tekken 8"
     end
   end
 end

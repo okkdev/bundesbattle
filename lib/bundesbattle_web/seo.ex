@@ -14,17 +14,18 @@ defmodule BundesbattleWeb.SEO do
   def build(%__MODULE__{} = seo) do
     %{
       "title" => seo.title,
-      "og:title" => seo.title,
-      "twitter:title" => seo.title,
       "description" => seo.description,
       "og:description" => seo.description,
-      "twitter:description" => seo.description,
+      "og:image" => BundesbattleWeb.Endpoint.url() <> seo.image,
+      "og:site_name" => "BundesBattle",
+      "og:title" => seo.title,
       "og:type" => "website",
       "og:url" => BundesbattleWeb.Endpoint.url() <> seo.url,
-      "twitter:url" => BundesbattleWeb.Endpoint.url() <> seo.url,
       "twitter:card" => "summary_large_image",
-      "og:image" => BundesbattleWeb.Endpoint.url() <> seo.image,
-      "twitter:image" => BundesbattleWeb.Endpoint.url() <> seo.image
+      "twitter:description" => seo.description,
+      "twitter:image" => BundesbattleWeb.Endpoint.url() <> seo.image,
+      "twitter:title" => seo.title,
+      "twitter:url" => BundesbattleWeb.Endpoint.url() <> seo.url
     }
   end
 end

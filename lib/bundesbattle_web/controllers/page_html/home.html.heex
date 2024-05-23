@@ -19,13 +19,13 @@
       </div>
     </div>
     <div class="px-6 mx-auto max-w-7xl lg:px-8">
-      <div class="mx-auto max-w-2xl sm:pt-24 lg:pt-40 pt-20">
+      <div class="pt-20 mx-auto max-w-2xl sm:pt-24 lg:pt-40">
         <div
           :if={not Enum.empty?(@upcoming_tournaments)}
           class="hidden sm:flex sm:justify-center sm:mb-8"
         >
           <a href={~p"/tournament/#{Enum.at(@upcoming_tournaments, 0).id}"} class="relative">
-            <div class="absolute w-full h-full py-1 px-3 text-sm leading-6 text-gray-400 rounded-full ring-1 animate-ping ring-white/10 hover:ring-white/20">
+            <div class="absolute py-1 px-3 w-full h-full text-sm leading-6 text-gray-400 rounded-full ring-1 animate-ping ring-white/10 hover:ring-white/20">
             </div>
 
             <div class="py-1 px-3 text-sm leading-6 text-gray-400 rounded-full ring-1 ring-white/10 hover:ring-white/20">
@@ -306,7 +306,10 @@
                   <%= @upcoming_tournament_zurich.name %>
                 </p>
                 <p>
-                  <%= Calendar.strftime(@upcoming_tournament_zurich.datetime, "%d.%m.%Y %H:%M") %>
+                  <%= Calendar.strftime(
+                    @upcoming_tournament_zurich.datetime,
+                    "%a, %d %B %Y %H:%M"
+                  ) %>
                 </p>
               </div>
             <% else %>
@@ -339,7 +342,7 @@
                   <%= @upcoming_tournament_basel.name %>
                 </p>
                 <p>
-                  <%= Calendar.strftime(@upcoming_tournament_basel.datetime, "%d.%m.%Y %H:%M") %>
+                  <%= Calendar.strftime(@upcoming_tournament_basel.datetime, "%a, %d %B %Y %H:%M") %>
                 </p>
               </div>
             <% else %>
@@ -372,7 +375,10 @@
                   <%= @upcoming_tournament_lausanne.name %>
                 </p>
                 <p>
-                  <%= Calendar.strftime(@upcoming_tournament_lausanne.datetime, "%d.%m.%Y %H:%M") %>
+                  <%= Calendar.strftime(
+                    @upcoming_tournament_lausanne.datetime,
+                    "%a, %d %B %Y %H:%M"
+                  ) %>
                 </p>
               </div>
             <% else %>
