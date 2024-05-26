@@ -55,7 +55,7 @@ defmodule BundesbattleWeb.TournamentLive do
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-800">
-            <tr :for={player <- @tournament.players}>
+            <tr :for={player <- Enum.sort(@tournament.players, &(&1.placement <= &2.placement))}>
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-0">
                 <%= player.placement %>
               </td>
