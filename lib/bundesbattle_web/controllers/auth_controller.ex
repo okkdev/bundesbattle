@@ -13,6 +13,7 @@ defmodule BundesbattleWeb.AuthController do
     user_params =
       %{
         "email" => user_info.email,
+        "display_name" => extra_info.raw_info.user["global_name"],
         "username" => user_info.nickname,
         "discord_id" => extra_info.raw_info.user["id"],
         "image" => user_info.image

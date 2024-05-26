@@ -13,12 +13,12 @@
 {:ok, okk} =
   Bundesbattle.Accounts.create_user(
     %{
-      display_name: nil,
-      username: "okk",
-      canton: nil,
-      discord_id: "116146991540600840",
-      email: "dev@stehlik.me",
-      role: :admin
+      "display_name" => nil,
+      "username" => "okk",
+      "canton" => nil,
+      "discord_id" => "116146991540600840",
+      "email" => "dev@stehlik.me",
+      "role" => :admin
     },
     random_password: true
   )
