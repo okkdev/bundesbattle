@@ -100,7 +100,7 @@ defmodule BundesbattleWeb.Components do
                 <div class="flex items-center gap-x-4">
                   <%= if player.player.canton do %>
                     <img
-                      src={"/images/wappen/#{player.player.canton}.svg"}
+                      src={"/wappen/#{player.player.canton}.svg"}
                       alt={player.player.canton |> Atom.to_string() |> String.upcase()}
                       class="h-6 w-6"
                     />

@@ -63,7 +63,7 @@ defmodule BundesbattleWeb.TournamentLive do
                 <div class="flex items-center gap-x-4">
                   <%= if player.user.canton do %>
                     <img
-                      src={"/images/wappen/#{player.user.canton}.svg"}
+                      src={"/wappen/#{player.user.canton}.svg"}
                       alt={player.user.canton |> Atom.to_string() |> String.upcase()}
                       class="h-6 w-6"
                     />
