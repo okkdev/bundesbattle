@@ -25,7 +25,7 @@
     type="select"
     label="Player"
     prompt="Choose a value"
-    options={@users |> Enum.map(&{&1.display_name, &1.id})}
+    options={@users |> Enum.map(&{&1.display_name || &1.username, &1.id})}
   />
 
   <:actions>

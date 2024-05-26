@@ -135,12 +135,21 @@
               </.link>
             </div>
             <div class="py-6">
-              <.link
-                navigate={~p"/login"}
-                class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
-              >
-                Log in
-              </.link>
+              <%= if @current_user do %>
+                <.link
+                  navigate={~p"/user/settings"}
+                  class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
+                >
+                  <%= @current_user.username %>
+                </.link>
+              <% else %>
+                <.link
+                  navigate={~p"/login"}
+                  class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
+                >
+                  Log in
+                </.link>
+              <% end %>
             </div>
           </div>
         </div>

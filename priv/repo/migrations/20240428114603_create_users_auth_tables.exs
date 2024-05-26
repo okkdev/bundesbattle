@@ -16,7 +16,7 @@ defmodule Bundesbattle.Repo.Migrations.CreateUsersAuthTables do
       timestamps(type: :utc_datetime)
     end
 
-    create unique_index(:users, [:email, :username])
+    create unique_index(:users, [:email, :username, :discord_id])
 
     create table(:users_tokens, primary_key: false) do
       add :id, :binary_id, primary_key: true

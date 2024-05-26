@@ -76,7 +76,7 @@ defmodule Bundesbattle.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :username, :discord_id, :image, :role])
+    |> cast(attrs, [:email, :password, :display_name, :username, :discord_id, :image, :role])
     |> validate_required([:username])
     |> unsafe_validate_unique(:username, Bundesbattle.Repo)
     |> unique_constraint(:username)
@@ -94,7 +94,6 @@ defmodule Bundesbattle.Accounts.User do
 
   defp validate_email(changeset, opts) do
     changeset
-    |> validate_required([:email])
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
     |> maybe_validate_unique_email(opts)
@@ -131,6 +130,7 @@ defmodule Bundesbattle.Accounts.User do
   defp maybe_validate_unique_email(changeset, opts) do
     if Keyword.get(opts, :validate_email, true) do
       changeset
+      |> validate_required([:email])
       |> unsafe_validate_unique(:email, Bundesbattle.Repo)
       |> unique_constraint(:email)
     else

@@ -92,7 +92,7 @@ defmodule BundesbattleWeb.Manage.UserLive.FormComponent do
   end
 
   defp save_user(socket, :new, user_params) do
-    case Accounts.create_user(user_params, random_password: true) do
+    case Accounts.create_user(user_params, random_password: true, validate_email: false) do
       {:ok, user} ->
         notify_parent({:saved, user})
 

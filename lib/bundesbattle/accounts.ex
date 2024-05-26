@@ -375,7 +375,7 @@ defmodule Bundesbattle.Accounts do
   end
 
   def fetch_or_create_user(attrs, opts \\ []) do
-    case get_user_by_discord_id(attrs.discord_id) do
+    case get_user_by_discord_id(attrs["discord_id"]) do
       %User{} = user ->
         maybe_update_user_empty_fields(user, attrs)
 
@@ -387,12 +387,12 @@ defmodule Bundesbattle.Accounts do
   def create_user(attrs, opts \\ []) do
     attrs =
       case Keyword.get(opts, :random_password, false) do
-        true -> Map.put(attrs, :password, random_password())
+        true -> Map.put(attrs, "password", random_password())
         false -> attrs
       end
 
     %User{}
-    |> User.registration_changeset(attrs)
+    |> User.registration_changeset(attrs, opts)
     |> Repo.insert()
   end
 

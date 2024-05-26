@@ -182,7 +182,10 @@ defmodule BundesbattleWeb.UserAuth do
     socket = mount_current_user(socket, session)
 
     if socket.assigns.current_user do
-      {:halt, Phoenix.LiveView.redirect(socket, to: signed_in_path(socket))}
+      {:halt,
+       socket
+       |> put_flash(:info, "Already logged in :)")
+       |> Phoenix.LiveView.redirect(to: signed_in_path(socket))}
     else
       {:cont, socket}
     end

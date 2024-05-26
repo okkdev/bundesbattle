@@ -12,10 +12,10 @@ defmodule BundesbattleWeb.AuthController do
       ) do
     user_params =
       %{
-        email: user_info.email,
-        username: user_info.nickname,
-        discord_id: extra_info.raw_info.user["id"],
-        image: user_info.image
+        "email" => user_info.email,
+        "username" => user_info.nickname,
+        "discord_id" => extra_info.raw_info.user["id"],
+        "image" => user_info.image
       }
 
     case Accounts.fetch_or_create_user(user_params, random_password: true) do
