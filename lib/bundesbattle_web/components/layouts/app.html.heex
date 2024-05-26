@@ -134,23 +134,34 @@
                 Lausanne
               </.link>
             </div>
-            <div class="py-6">
-              <%= if @current_user do %>
+            <%= if @current_user do %>
+              <div class="py-6">
                 <.link
                   navigate={~p"/user/settings"}
                   class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
                 >
                   <%= @current_user.username %>
                 </.link>
-              <% else %>
+              </div>
+              <div class="py-6">
+                <.link
+                  href={~p"/logout"}
+                  method="delete"
+                  class="font-semibold leading-6 text-[0.8125rem]"
+                >
+                  Log out
+                </.link>
+              </div>
+            <% else %>
+              <div class="py-6">
                 <.link
                   navigate={~p"/login"}
                   class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 rounded-lg hover:bg-gray-800"
                 >
                   Log in
                 </.link>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
