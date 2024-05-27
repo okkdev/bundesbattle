@@ -23,6 +23,19 @@
     random_password: true
   )
 
+{:ok, okk2} =
+  Bundesbattle.Accounts.create_user(
+    %{
+      "display_name" => nil,
+      "username" => "okk2",
+      "canton" => nil,
+      "discord_id" => "",
+      "email" => "bla@bla.me",
+      "role" => :player
+    },
+    random_password: true
+  )
+
 {:ok, basel} =
   Bundesbattle.Regions.create_region(%{
     name: "Basel",

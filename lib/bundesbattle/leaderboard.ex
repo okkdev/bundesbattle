@@ -28,6 +28,7 @@ defmodule Bundesbattle.Leaderboard do
           |> Enum.sum()
       }
     end)
+    |> Enum.filter(&(&1.points > 0))
     |> Enum.sort(fn p1, p2 -> p1.points >= p2.points end)
     |> Enum.with_index(fn p, index -> %{place: index + 1, player: p.player, points: p.points} end)
   end

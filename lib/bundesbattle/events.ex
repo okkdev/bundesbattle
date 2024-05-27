@@ -142,7 +142,11 @@ defmodule Bundesbattle.Events do
   end
 
   def list_tournament_players_for_tournament(tournament_id) do
-    Repo.all(TournamentPlayer, tournament_id: tournament_id)
+    query =
+      from tp in TournamentPlayer,
+        where: tp.tournament_id == ^tournament_id
+
+    Repo.all(query)
     |> Repo.preload(:user)
   end
 end

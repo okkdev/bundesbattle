@@ -76,7 +76,16 @@ defmodule Bundesbattle.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :display_name, :username, :discord_id, :image, :role])
+    |> cast(attrs, [
+      :email,
+      :password,
+      :display_name,
+      :username,
+      :discord_id,
+      :image,
+      :role,
+      :canton
+    ])
     |> validate_required([:username])
     |> unsafe_validate_unique(:username, Bundesbattle.Repo)
     |> unique_constraint(:username)

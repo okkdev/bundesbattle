@@ -33,14 +33,11 @@
   </:actions>
 </.simple_form>
 
-<.table id="tournament-players" rows={@streams.players}>
-  <:col :let={{_id, player}} label="Placement"><%= player.placement %></:col>
-  <:col :let={{_id, player}} label="Username"><%= player.user.username %></:col>
-  <:action :let={{id, player}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: player.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
+<.table id="tournament-players" rows={@players}>
+  <:col :let={player} label="Placement"><%= player.placement %></:col>
+  <:col :let={player} label="Username"><%= player.user.username %></:col>
+  <:action :let={player}>
+    <.link phx-click={JS.push("delete", value: %{id: player.id})} data-confirm="Are you sure?">
       Delete
     </.link>
   </:action>

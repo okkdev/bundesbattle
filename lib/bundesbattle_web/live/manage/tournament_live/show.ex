@@ -22,7 +22,7 @@ defmodule BundesbattleWeb.Manage.TournamentLive.Show do
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:tournament, Events.get_tournament!(id))
      |> assign(:locations, Regions.list_locations())
-     |> stream(
+     |> assign(
        :players,
        Enum.sort(
          Events.list_tournament_players_for_tournament(id),
@@ -39,7 +39,11 @@ defmodule BundesbattleWeb.Manage.TournamentLive.Show do
       {:ok, player} ->
         {:noreply,
          socket
-         |> stream_insert(:players, Events.preload_tournament_player(player))
+         |> assign(
+           :players,
+           [Events.preload_tournament_player(player) | socket.assigns.players]
+           |> Enum.sort(&(&1.placement <= &2.placement))
+         )
          |> put_flash(:info, "Added player")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -52,7 +56,15 @@ defmodule BundesbattleWeb.Manage.TournamentLive.Show do
     tp = Events.get_tournament_player!(id)
     {:ok, _} = Events.delete_tournament_player(tp)
 
-    {:noreply, stream_delete(socket, :players, tp)}
+    {:noreply,
+     assign(
+       socket,
+       :players,
+       Enum.sort(
+         Events.list_tournament_players_for_tournament(id),
+         &(&1.placement <= &2.placement)
+       )
+     )}
   end
 
   defp page_title(:show), do: "Show Tournament"
