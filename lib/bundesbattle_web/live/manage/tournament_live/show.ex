@@ -22,7 +22,13 @@ defmodule BundesbattleWeb.Manage.TournamentLive.Show do
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:tournament, Events.get_tournament!(id))
      |> assign(:locations, Regions.list_locations())
-     |> stream(:players, Events.list_tournament_players_for_tournament(id))}
+     |> stream(
+       :players,
+       Enum.sort(
+         Events.list_tournament_players_for_tournament(id),
+         &(&1.placement <= &2.placement)
+       )
+     )}
   end
 
   @impl true

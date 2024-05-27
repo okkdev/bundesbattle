@@ -81,7 +81,7 @@ defmodule BundesbattleWeb.Components do
               <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-0">
                 Place
               </th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold">
+              <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold">
                 Player
               </th>
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold">
@@ -90,7 +90,7 @@ defmodule BundesbattleWeb.Components do
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-800">
-            <tr :for={player <- @placements}>
+            <tr :for={player <- @placements} class={if player.place in [1, 2], do: "text-brand"}>
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-0">
                 <div class="font-stencil text-xl">
                   <%= player.place %>
@@ -102,10 +102,10 @@ defmodule BundesbattleWeb.Components do
                     <img
                       src={"/wappen/#{player.player.canton}.svg"}
                       alt={player.player.canton |> Atom.to_string() |> String.upcase()}
-                      class="h-6 w-6"
+                      class="size-6"
                     />
                   <% else %>
-                    <div class="h-6 w-6"></div>
+                    <div class="size-6"></div>
                   <% end %>
 
                   <div class="text-lg font-medium"><%= display_or_username(player.player) %></div>
