@@ -419,6 +419,13 @@ defmodule Bundesbattle.Accounts do
     Repo.delete(user)
   end
 
+  def display_or_username(%User{} = user) do
+    case user.display_name do
+      nil -> user.username
+      dn -> dn
+    end
+  end
+
   defp random_password do
     :crypto.strong_rand_bytes(32) |> Base.encode64()
   end

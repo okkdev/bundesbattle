@@ -4,6 +4,7 @@ defmodule BundesbattleWeb.TournamentLive do
   alias Bundesbattle.Events
   alias Bundesbattle.Leaderboard
   alias BundesbattleWeb.SEO
+  alias Bundesbattle.Accounts
 
   @impl true
   def render(assigns) do
@@ -70,7 +71,7 @@ defmodule BundesbattleWeb.TournamentLive do
                   <% else %>
                     <div class="h-6 w-6"></div>
                   <% end %>
-                  <%= display_or_username(player.user) %>
+                  <%= Accounts.display_or_username(player.user) %>
                 </div>
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm">

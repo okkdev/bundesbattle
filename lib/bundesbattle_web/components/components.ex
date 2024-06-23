@@ -1,5 +1,5 @@
 defmodule BundesbattleWeb.Components do
-  alias Bundesbattle.Accounts.User
+  alias Bundesbattle.Accounts
   use Phoenix.Component
 
   slot :inner_block
@@ -108,7 +108,9 @@ defmodule BundesbattleWeb.Components do
                     <div class="size-6"></div>
                   <% end %>
 
-                  <div class="text-lg font-medium"><%= display_or_username(player.player) %></div>
+                  <div class="text-lg font-medium">
+                    <%= Accounts.display_or_username(player.player) %>
+                  </div>
                 </div>
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm">
@@ -142,12 +144,5 @@ defmodule BundesbattleWeb.Components do
       <.game_logo game={@tournament.game} class="h-5 mt-5" />
     </.link>
     """
-  end
-
-  def display_or_username(%User{} = user) do
-    case user.display_name do
-      nil -> user.username
-      dn -> dn
-    end
   end
 end
