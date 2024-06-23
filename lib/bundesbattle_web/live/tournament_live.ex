@@ -29,10 +29,11 @@ defmodule BundesbattleWeb.TournamentLive do
         Leaderboard: <%= @tournament.location.region.name %>
       </.link>
 
-      <div :if={@tournament.bracket_link} class="my-8 font-semibold text-lg">
-        Bracket:
-        <.link href={@tournament.bracket_link} class="text-brand">
-          <%= @tournament.bracket_link %>
+      <div :if={@tournament.bracket_link} class="my-8 flex">
+        <.link href={@tournament.bracket_link}>
+          <div class="text-lg bg-brand text-gray-900 py-2 px-3 rounded font-stencil hover:bg-gray-800 hover:text-brand">
+            BRACKET
+          </div>
         </.link>
       </div>
 
