@@ -75,7 +75,7 @@ defmodule BundesbattleWeb.Components do
       <.game_logo :if={assigns[:game]} game={@game} class="h-8 mb-4" />
 
       <%= if not Enum.empty?(@placements) do %>
-        <table class="min-w-full divide-y divide-white/70 flex-auto">
+        <table class="min-w-full divide-y divide-white/70">
           <thead>
             <tr>
               <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-0">
