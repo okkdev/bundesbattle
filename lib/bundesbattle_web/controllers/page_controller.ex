@@ -16,16 +16,20 @@ defmodule BundesbattleWeb.PageController do
       upcoming_tournaments
       |> Enum.find(&(&1.location.region.slug == "basel"))
 
-    upcoming_tournament_lausanne =
+    # upcoming_tournament_lausanne =
+    #   upcoming_tournaments
+    #   |> Enum.find(&(&1.location.region.slug == "lausanne"))
+
+    upcoming_tournament_bern =
       upcoming_tournaments
-      |> Enum.find(&(&1.location.region.slug == "lausanne"))
+      |> Enum.find(&(&1.location.region.slug == "bern"))
 
     render(conn, :home,
       layout: false,
       upcoming_tournaments: upcoming_tournaments,
       upcoming_tournament_zurich: upcoming_tournament_zurich,
       upcoming_tournament_basel: upcoming_tournament_basel,
-      upcoming_tournament_lausanne: upcoming_tournament_lausanne
+      upcoming_tournament_bern: upcoming_tournament_bern
     )
   end
 end

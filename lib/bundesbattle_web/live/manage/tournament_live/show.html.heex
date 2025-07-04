@@ -39,7 +39,7 @@
 
 <.table id="tournament-players" rows={@players}>
   <:col :let={player} label="Placement"><%= player.placement %></:col>
-  <:col :let={player} label="Username"><%= player.user.username %></:col>
+  <:col :let={player} label="Name"><%= Accounts.display_or_username(player.user) %></:col>
   <:action :let={player}>
     <.link phx-click={JS.push("delete", value: %{id: player.id})} data-confirm="Are you sure?">
       Delete

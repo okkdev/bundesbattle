@@ -9,9 +9,9 @@ defmodule Bundesbattle.Events.Tournament do
     field :name, :string
     field :bracket_link, :string
     field :datetime, :naive_datetime
-    field :bundesbattle_season, :integer, default: 2
+    field :bundesbattle_season, :integer, default: 3
     field :description, :string
-    field :game, Ecto.Enum, values: [:tekken, :streetfighter]
+    field :game, Ecto.Enum, values: [:tekken, :streetfighter, :guiltygear]
     belongs_to :location, Bundesbattle.Regions.Location
     has_many :players, Bundesbattle.Events.TournamentPlayer
 

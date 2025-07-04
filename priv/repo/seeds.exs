@@ -55,6 +55,12 @@ Bundesbattle.Regions.create_region(%{
   qualifier_type: :monthly
 })
 
+Bundesbattle.Regions.create_region(%{
+  name: "Bern",
+  slug: "bern",
+  qualifier_type: :monthly
+})
+
 {:ok, manabar} =
   Bundesbattle.Regions.create_location(%{
     name: "ManaBar",

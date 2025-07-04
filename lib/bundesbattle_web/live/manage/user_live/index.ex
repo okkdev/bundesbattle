@@ -6,7 +6,13 @@ defmodule BundesbattleWeb.Manage.UserLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :users, Accounts.list_users())}
+    {:ok,
+     stream(
+       socket,
+       :users,
+       Accounts.list_users()
+       |> Enum.sort_by(&Accounts.display_or_username(&1), &<=/2)
+     )}
   end
 
   @impl true

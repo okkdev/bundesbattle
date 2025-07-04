@@ -10,7 +10,7 @@ defmodule BundesbattleWeb.Components do
       <h2 id="footer-heading" class="sr-only">Footer</h2>
 
       <div class="flex gap-8 justify-center items-center mb-8">
-        <.link href="https://discord.gg/yW6e42Mx6W" class="size-6 flex items-center">
+        <.link href="https://discord.gg/yW6e42Mx6W" class="flex items-center size-6">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36">
             <path
               fill="#fff"
@@ -23,6 +23,9 @@ defmodule BundesbattleWeb.Components do
 
       <p>STREET FIGHTER™ 6 and the STREET FIGHTER™ 6 logo are trademarks of CAPCOM CO., LTD.</p>
       <p>TEKKEN™ 8 and the TEKKEN™ 8 logo are trademarks of BANDAI NAMCO ENTERTAINMENT INC.</p>
+      <p>
+        Guilty Gear™ Strive and the Guilty Gear™ Strive logo are trademarks of ARC SYSTEM WORKS CO., LTD.
+      </p>
 
       <%= render_slot(@inner_block) %>
     </footer>
@@ -43,6 +46,9 @@ defmodule BundesbattleWeb.Components do
 
         :tekken ->
           {"/images/tekken8-light-logo.svg", "Tekken 8"}
+
+        :guiltygear ->
+          {"/images/guiltygear-light-logo.svg", "Guilty Gear Strive"}
 
         game ->
           {nil,
@@ -72,32 +78,32 @@ defmodule BundesbattleWeb.Components do
   def leaderboard(assigns) do
     ~H"""
     <div class={["p-3 rounded-lg border border-white/20 flex flex-col", @class]}>
-      <.game_logo :if={assigns[:game]} game={@game} class="h-8 mb-4" />
+      <.game_logo :if={assigns[:game]} game={@game} class="mb-4 h-8" />
 
       <%= if not Enum.empty?(@placements) do %>
         <table class="min-w-full divide-y divide-white/70">
           <thead>
             <tr>
-              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-0">
+              <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left sm:pl-0">
                 Place
               </th>
-              <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold">
+              <th scope="col" class="py-3.5 px-3 text-sm font-semibold text-center">
                 Player
               </th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold">
+              <th scope="col" class="py-3.5 px-3 text-sm font-semibold text-left">
                 Points
               </th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-800">
             <tr :for={player <- @placements} class={if player.place in [1, 2], do: "text-brand"}>
-              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-0">
-                <div class="font-stencil text-xl">
+              <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap sm:pl-0">
+                <div class="text-xl font-stencil">
                   <%= player.place %>
                 </div>
               </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm">
-                <div class="flex items-center gap-x-4">
+              <td class="py-4 px-3 text-sm whitespace-nowrap">
+                <div class="flex gap-x-4 items-center">
                   <%= if player.player.canton do %>
                     <img
                       src={"/wappen/#{player.player.canton}.svg"}
@@ -113,8 +119,8 @@ defmodule BundesbattleWeb.Components do
                   </div>
                 </div>
               </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm">
-                <div class="font-stencil text-lg">
+              <td class="py-4 px-3 text-sm whitespace-nowrap">
+                <div class="text-lg font-stencil">
                   <%= player.points %>
                 </div>
               </td>
@@ -122,7 +128,7 @@ defmodule BundesbattleWeb.Components do
           </tbody>
         </table>
       <% else %>
-        <div class="text-center my-5">
+        <div class="my-5 text-center">
           No player on the leaderboard
         </div>
       <% end %>
@@ -136,12 +142,12 @@ defmodule BundesbattleWeb.Components do
     ~H"""
     <.link
       navigate={"/tournament/#{@tournament.id}"}
-      class="rounded-lg border bg-gray-900/50 border-white/50 py-5 px-6 flex flex-col items-start hover:bg-white/10"
+      class="flex flex-col items-start py-5 px-6 rounded-lg border bg-gray-900/50 border-white/50 hover:bg-white/10"
     >
       <h2 class="text-xl font-bold"><%= @tournament.name %></h2>
       <div class="text-lg"><%= Calendar.strftime(@tournament.datetime, "%a, %d %B %Y %H:%M") %></div>
-      <div class="text-lg flex-auto font-semibold">@<%= @tournament.location.name %></div>
-      <.game_logo game={@tournament.game} class="h-5 mt-5" />
+      <div class="flex-auto text-lg font-semibold">@<%= @tournament.location.name %></div>
+      <.game_logo game={@tournament.game} class="mt-5 h-5" />
     </.link>
     """
   end

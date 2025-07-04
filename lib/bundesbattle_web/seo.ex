@@ -1,5 +1,5 @@
 defmodule BundesbattleWeb.SEO do
-  defstruct title: "BundesBattle Season 2",
+  defstruct title: "BundesBattle Season 3",
             description: """
             We're back with another season of heated competition to find the best Street Fighter 6 and Tekken 8 player in Switzerland!
             Prove your consistency by gathering points, or make an explosive entrance by winning one of our direct qualifiers!

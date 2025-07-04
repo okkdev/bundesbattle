@@ -22,6 +22,7 @@ defmodule BundesbattleWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/rules", RuleController, :index
     # get "/impressum", ImpressumController, :index
 
     live_session :default, on_mount: [{BundesbattleWeb.UserAuth, :mount_current_user}] do

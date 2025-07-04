@@ -1,0 +1,184 @@
+<.flash_group flash={@flash} />
+
+<main class="py-16 px-6 mx-auto max-w-4xl text-gray-300 lg:px-8">
+  <div class="mx-auto divide-y divide-gray-900/10">
+    <h1 class="pb-6 text-4xl text-center text-white font-stencil">
+      Detailed Rules & Format
+    </h1>
+
+    <%!-- General Tournament Rules --%>
+    <div class="py-8">
+      <h2 class="mb-4 text-2xl font-stencil text-brand">General Tournament Rules</h2>
+      <ul class="pl-6 space-y-4 list-disc">
+        <li>All tournaments are held in a double-elimination style bracket.</li>
+        <li>
+          Controllers may not send simultaneous opposite cardinal directions (SOCD), such as Left+Right or Up+Down. This is typically enforced by cleaning firmware. Standard stock gamepads (e.g., PlayStation DUALSHOCK®4) are exempt from this rule.
+        </li>
+        <li>
+          Coaching is limited to one coach per set for a maximum of one minute between matches. Violating this rule may result in a warning, followed by disqualification on a second offense.
+        </li>
+        <li>Contestants may request a blind pick prior to the start of a match.</li>
+        <li>Contestants may play "rock paper scissors" to decide which side to play on.</li>
+        <li>Only the player who lost the previous game is allowed to switch characters.</li>
+        <li>
+          Newly released characters are banned from tournament play for two weeks following their official release date.
+        </li>
+      </ul>
+    </div>
+
+    <%!-- Leaderboard Tiebreakers --%>
+    <div class="py-8">
+      <h2 class="mb-4 text-2xl font-stencil text-brand">Leaderboard Tiebreakers</h2>
+      <p class="mb-4">
+        The placements on a leaderboard are determined as follows:
+      </p>
+      <ol class="pl-6 space-y-4 list-decimal">
+        <li>
+          The total points from the player's 4 best placements. If a player participated in all 5 qualifiers of a region, their worst placement is discarded.
+        </li>
+        <li>
+          If players are tied in points and both participated in all 5 qualifiers, the player with the better result in the 5th qualifier is ranked higher.
+        </li>
+        <li>
+          If players are still tied, or if one or both players participated in fewer than 5 qualifiers, the player who earned their points in fewer events is ranked higher. (For players with 5 events, the discarded worst result is not counted here).
+        </li>
+        <li>
+          If a tie persists, the player with the single best placement in any of the region's qualifiers is ranked higher.
+        </li>
+        <li>
+          If still tied, the player with the better head-to-head record against the other tied players across all regional qualifiers is ranked higher.
+        </li>
+        <li>
+          If players remain tied, they must play a Best-of-5 tiebreaker set. This is preferably played offline, but can be arranged online if necessary. The winner receives the higher placement.
+        </li>
+      </ol>
+    </div>
+
+    <%!-- Finals Eligibility --%>
+    <div class="py-8">
+      <h2 class="mb-4 text-2xl font-stencil text-brand">
+        Finals Eligibility for Direct Qualifier Winners
+      </h2>
+      <ul class="pl-6 space-y-4 list-disc">
+        <li>
+          Only players who are Swiss residents OR have participated in at least 3 qualifier events (including local and direct qualifiers) across all regions are eligible for direct qualifier spots.
+        </li>
+        <li>
+          If a non-eligible player wins a direct qualifier, the spot is given to the next-best placing player who meets the criteria.
+        </li>
+        <li>
+          If the first eligible players from a direct qualifier are tied in placement, the spot is given to the player with the highest total points across all combined regional leaderboards at the end of the season.
+        </li>
+        <li>
+          If the same player wins both direct qualifier spots, the second spot is given to the 2nd place finisher of the direct qualifier tournament that had more participants.
+        </li>
+      </ul>
+    </div>
+
+    <%!-- Player Cancellation --%>
+    <div class="py-8">
+      <h2 class="mb-4 text-2xl font-stencil text-brand">Qualified Player Cancellation</h2>
+      <ul class="pl-6 space-y-4 list-disc">
+        <li>
+          <strong>Direct Qualifiers:</strong>
+          If a player cannot attend, the spot is given to the next-best placing eligible player from that qualifier.
+        </li>
+        <li>
+          <strong>Regional Leaderboards:</strong>
+          If a player cannot attend, the spot is given to the next-best placing player on that leaderboard.
+        </li>
+      </ul>
+    </div>
+
+    <%!-- Finals Format --%>
+    <div class="py-8">
+      <h2 class="mb-4 text-2xl font-stencil text-brand">Finals Format</h2>
+      <ul class="pl-6 space-y-4 list-disc">
+        <li>
+          <strong>Group Stage:</strong>
+          Two groups will play in a Round Robin format. All sets are Best-of-5.
+        </li>
+        <li>
+          <strong>Final Stage:</strong>
+          The top 2 players from each group advance to a single-elimination bracket. All sets are Best-of-7, except for the Grand Final, which is Best-of-9.
+        </li>
+        <li>
+          <h3 class="font-bold text-white">Group Splits:</h3>
+          <div class="grid grid-cols-1 gap-x-8 sm:grid-cols-2">
+            <div>
+              <p class="mt-2 font-semibold text-gray-200">Group A:</p>
+              <ul class="pl-5 list-disc">
+                <li>Direct Qualifier 1 Winner</li>
+                <li>Online Qualifier 1st Place</li>
+                <li>LCQ 2nd Place</li>
+                <li>Zurich Leaderboard 2nd Place</li>
+                <li>Bern Leaderboard 1st Place</li>
+                <li>Basel Leaderboard 1st Place</li>
+              </ul>
+            </div>
+            <div>
+              <p class="mt-2 font-semibold text-gray-200">Group B:</p>
+              <ul class="pl-5 list-disc">
+                <li>Direct Qualifier 2 Winner</li>
+                <li>Online Qualifier 2nd Place</li>
+                <li>LCQ 1st Place</li>
+                <li>Zurich Leaderboard 1st Place</li>
+                <li>Bern Leaderboard 2nd Place</li>
+                <li>Basel Leaderboard 2nd Place</li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <%!-- Other Rules --%>
+    <div class="py-8">
+      <h2 class="mb-4 text-2xl font-stencil text-brand">Other Rules & Updates</h2>
+      <ul class="pl-6 space-y-6 list-disc">
+        <li>
+          <h3 class="font-bold text-white">Tekken 8 Rule Update:</h3>
+          <p>
+            The rule
+            <span class="line-through">
+              "Every match is played on random stage, no stage select"
+            </span>
+            is replaced by the official Tekken World Tour ruleset.
+          </p>
+          <p class="mt-1">
+            All Tekken tournaments will follow the official Tekken World Tour rules:
+            <a
+              href="https://www.bandainamcoent.com/legal/community-events/official-rules-twt"
+              class="text-brand hover:text-brand/80"
+            >
+              https://www.bandainamcoent.com/legal/community-events/official-rules-twt
+            </a>
+          </p>
+        </li>
+        <li>
+          <h3 class="font-bold text-white">Incomplete Regional Qualifiers:</h3>
+          <p>In case a region cannot host all 5 qualifiers:</p>
+          <ul class="pl-5 mt-2 space-y-2 list-disc">
+            <li>
+              Leaderboards are still eligible for qualification if at least 3 qualifiers were played.
+            </li>
+            <li>
+              If fewer than 3 qualifiers were played, the spots from that regional leaderboard are awarded to the other regions (the other regions will then qualify 3 players each instead of 2).
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3 class="font-bold text-white">Finals Prize Pot:</h3>
+          <ul class="pl-5 mt-2 space-y-2 list-disc">
+            <li>
+              Each regional qualifier contributes CHF 2.- to the finals prize pot for every participant.
+            </li>
+            <li>
+              Each Last Chance Qualifier (LCQ) participant contributes CHF 5.- to the finals prize pot.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
