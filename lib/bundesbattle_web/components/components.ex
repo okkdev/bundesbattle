@@ -24,7 +24,7 @@ defmodule BundesbattleWeb.Components do
       <p>STREET FIGHTER™ 6 and the STREET FIGHTER™ 6 logo are trademarks of CAPCOM CO., LTD.</p>
       <p>TEKKEN™ 8 and the TEKKEN™ 8 logo are trademarks of BANDAI NAMCO ENTERTAINMENT INC.</p>
       <p>
-        Guilty Gear™ Strive and the Guilty Gear™ Strive logo are trademarks of ARC SYSTEM WORKS CO., LTD.
+        Guilty Gear™ -Strive- and the Guilty Gear™ -Strive- logo are trademarks of ARC SYSTEM WORKS CO., LTD.
       </p>
 
       <%= render_slot(@inner_block) %>

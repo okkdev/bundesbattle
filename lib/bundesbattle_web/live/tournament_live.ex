@@ -141,6 +141,7 @@ defmodule BundesbattleWeb.TournamentLive do
     case game do
       :streetfighter -> "Street Fighter 6"
       :tekken -> "Tekken 8"
+      :guiltygear -> "Guilty Gear -Strive-"
     end
   end
 end
